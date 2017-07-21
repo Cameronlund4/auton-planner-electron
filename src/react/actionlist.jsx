@@ -9,6 +9,7 @@ export default class ActionList extends React.Component {
       size: 0
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+    this.updateActions = this.updateActions.bind(this);
   }
 
   updateWindowDimensions() {
@@ -22,6 +23,14 @@ export default class ActionList extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions);
+  }
+
+  updateActions(list) {
+    this.state = {
+      elements: list,
+      size: 0
+    };
+    this.updateWindowDimensions();
   }
 
   render() {

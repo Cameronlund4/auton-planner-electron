@@ -6,7 +6,7 @@ export default {
     padding: '6px',
     borderBottomStyle: 'dashed',
     borderWidth: '1px',
-    borderColor: 'gray'
+    borderColor: 'lightgray'
   },
 
   image : {

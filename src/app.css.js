@@ -15,5 +15,17 @@ export default {
   list : {
     boxSizing: 'border-box',
     overflow: 'auto'
+  },
+
+  buttonStyle : {
+    padding: '0px',
+    margin: '0px',
+    width: '50%',
+    height: '100%',
+    background: 'white',
+    borderWidth: '0px',
+    borderStyle: 'none',
+    fontFamily: 'Roboto',
+    fontWeight: '100'
   }
 }

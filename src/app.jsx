@@ -35,6 +35,24 @@ export default class App extends React.Component {
         </div>
         <div style={styles.panel}>
           <ActionList elements={listItems}/>
+          <div style={{
+            borderStyle: 'solid',
+            borderWidth: '1px',
+            borderColor: 'lightgray',
+            height: '30px',
+            width: '248px'
+          }}>
+            <button type="button" style={Object.assign(styles.buttonStyle, {
+              cssFloat: 'left',
+              borderWidth: '1px',
+              borderRightStyle: 'solid',
+              borderColor: 'lightgray'
+            })}>Add to end</button>
+            <button type="button" style={Object.assign(styles.buttonStyle, {
+              overflow: 'hidden',
+              borderStyle: 'none'
+            })}>Add before</button>
+          </div>
         </div>
       </div>
     );

@@ -1,29 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-</head>
-<body style="overflow: hidden; background-color: rgba(0,0,0,0); margin: 0" >
-  <div id="App"></div>
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width,
+      initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet">
 
+    <style type="text/css">
+      ::-webkit-scrollbar {
+        width: 12px;
+        /* for vertical scrollbars */
+        height: 12px;
+        /* for horizontal scrollbars */
+      }
 
-<!--<script type="text/css" src="./customscroll.css"/>-->
+      ::-webkit-scrollbar-track {
+        background: rgba(0, 0, 0, 0.1);
+      }
 
-<script type="text/jsx">
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {AppContainer} from 'react-hot-loader';
+      ::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.5);
+      }
+    </style>
+  </head>
 
-const render = () => {
-  const App = require('./app').default;
-  ReactDOM.render(<AppContainer><App /></AppContainer>, document.getElementById('App'));
-}
+  <body style="overflow: hidden; background-color: rgba(0,0,0,0); margin: 0" >
+    <div id="App"></div>
+  </body>
 
-render();
-if (module.hot) {
-  module.hot.accept(render);
-}
-</script>
+  <script type="text/jsx">
+    import React from 'react';
+    import ReactDOM from 'react-dom';
+    import {AppContainer} from 'react-hot-loader';
+
+    const render = () => {
+      const App = require('./app').default;
+      ReactDOM.render(<AppContainer><App /></AppContainer>,
+        document.getElementById('App'));
+    }
+
+    render();
+    if (module.hot) {
+      module.hot.accept(render);
+    }
+  </script>
 </html>

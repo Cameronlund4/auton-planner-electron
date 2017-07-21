@@ -12,12 +12,20 @@ export default class ActionList extends React.Component {
   render() {
     var rows = [];
     for (var i = 0; i < this.state.elements.length; i++) {
-      rows.push(<li>{this.state.elements[i]}</li>);
+      rows.push(
+        <li>{this.state.elements[i]}</li>
+      );
     }
 
     return (
       <div class="ActionList" style={{}}>
-        <ul style={{padding: '0px', margin: '0px',overflowY: 'scroll', height:'500px', width: '250px'}}>
+        <ul style={{
+          padding: '0px',
+          margin: '0px',
+          overflowY: 'scroll',
+          height: '100%',
+          width: '250px'
+        }}>
           {rows}
         </ul>
       </div>

@@ -5,8 +5,23 @@ export default class ActionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      elements: props.elements
+      elements: props.elements,
+      size: 0
     };
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
+  }
+
+  updateWindowDimensions() {
+    this.setState({size: window.innerHeight});
+  }
+
+  componentDidMount() {
+    this.updateWindowDimensions();
+    window.addEventListener('resize', this.updateWindowDimensions);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
   render() {
@@ -23,7 +38,7 @@ export default class ActionList extends React.Component {
           padding: '0px',
           margin: '0px',
           overflowY: 'scroll',
-          height: '100%',
+          height: this.state.size,
           width: '250px'
         }}>
           {rows}

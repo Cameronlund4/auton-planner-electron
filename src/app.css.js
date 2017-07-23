@@ -12,6 +12,21 @@ export default {
     height: '100%'
   },
 
+  panel_sub_left : {
+    width: '250px',
+    overflow: 'hidden',
+    cssFloat: 'left',
+    height: '100%'
+  },
+
+  panel_sub_right: {
+    width: '240px',
+    overflow: 'hidden',
+    cssFloat: 'right',
+    height: '100%',
+    padding: '5px'
+  },
+
   list : {
     boxSizing: 'border-box',
     overflow: 'auto'

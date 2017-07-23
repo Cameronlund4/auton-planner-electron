@@ -3,10 +3,17 @@ import Field from './react/field.jsx'
 import ActionCard from './react/actioncard.jsx'
 import ActionList from './react/actionlist.jsx'
 import styles from './app.css.js';
+import AutonAction from './main/AutonAction.jsx'
+import AutonActionWrapper from './main/AutonActionWrapper.jsx'
+import DriveAutonAction from './main/actions/DriveAutonAction.jsx'
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.actionTypes = {
+      drive: DriveAutonAction
+    }
 
     this.addAction = this.addAction.bind(this);
     this.createAction = this.createAction.bind(this);
@@ -30,13 +37,13 @@ export default class App extends React.Component {
   setSelected(selectedIndex) {
     let actions = this.state.actions
     if (this.state.selected != -1) {
-      actions[this.state.selected].selected = false;
+      actions[this.state.selected].meta.selected = false;
     }
     if (selectedIndex == this.state.selected) { // Toggle selection, set false
-      actions[selectedIndex].selected = false;
+      actions[selectedIndex].meta.selected = false;
       this.setState(Object.assign(this.state, {selected: -1}));
     } else { // New selection, set true
-      actions[selectedIndex].selected = true;
+      actions[selectedIndex].meta.selected = true;
       this.setState(Object.assign(this.state, {selected: selectedIndex}));
     }
   }
@@ -58,13 +65,16 @@ export default class App extends React.Component {
         type = "Turn";
         break;
     }
-    return {
+    let action = new AutonActionWrapper(this.setSelected);
+    action.autonAction = new this.actionTypes.drive();
+    action.meta = {
       name: "Unnamed Action " + i,
       type: type,
       icon: src,
       selectedCallback: this.setSelected,
       selected: false
     }
+    return action;
   }
 
   // NOTE: Inserting at index other than 0 or null may not work as expected
@@ -91,7 +101,7 @@ export default class App extends React.Component {
 
   createActionBeforeSelected() {
     if (this.state.selected != -1) {
-      this.state.actions[this.state.selected].selected = false; // Unselect old
+      this.state.actions[this.state.selected].meta.selected = false; // Unselect old
       // Add new
       this.addAction(this.createAction(this.state.actionCount++), this.state.selected)
       let temp = this.state.selected;
@@ -106,31 +116,46 @@ export default class App extends React.Component {
   }
 
   render() {
+
+    let actionGUI = <div/>;
+    if (this.state.selected != -1) {
+      actionGUI = this.state.actions[this.state.selected].getGUI();
+    }
+
     return (
       <div>
         <div style={styles.field}>
           <Field img="./assets/itz_field.jpg"/>
         </div>
+
         <div style={styles.panel}>
-          <ActionList elements={this.state.actions}/>
-          <div style={{
-            borderStyle: 'solid',
-            borderWidth: '1px',
-            borderColor: 'lightgray',
-            height: '30px',
-            width: '248px'
-          }}>
-            <button type="button" style={Object.assign(styles.buttonStyle, {
-              cssFloat: 'left',
+
+          <div style={styles.panel_sub_left}>
+            <ActionList elements={this.state.actions}/>
+            <div style={{
+              borderStyle: 'solid',
               borderWidth: '1px',
-              borderRightStyle: 'solid',
-              borderColor: 'lightgray'
-            })} onClick={this.createActionAtEnd}>Add to end</button>
-            <button type="button" style={Object.assign(styles.buttonStyle, {
-              overflow: 'hidden',
-              borderStyle: 'none'
-            })} onClick={this.createActionBeforeSelected}>Add before</button>
+              borderColor: 'lightgray',
+              height: '30px',
+              width: '248px'
+            }}>
+              <button type="button" style={Object.assign(styles.buttonStyle, {
+                cssFloat: 'left',
+                borderWidth: '1px',
+                borderRightStyle: 'solid',
+                borderColor: 'lightgray'
+              })} onClick={this.createActionAtEnd}>Add to end</button>
+              <button type="button" style={Object.assign(styles.buttonStyle, {
+                overflow: 'hidden',
+                borderStyle: 'none'
+              })} onClick={this.createActionBeforeSelected}>Add before</button>
+            </div>
           </div>
+
+          <div style={styles.panel_sub_right}>
+            {actionGUI}
+          </div>
+
         </div>
       </div>
     );

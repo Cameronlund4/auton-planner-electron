@@ -28,7 +28,7 @@ export default class ActionList extends React.Component {
   render() {
     let rows = [];
     for (let i = 0; i < this.props.elements.length; i++) {
-      let withIndex = Object.assign(this.props.elements[i], {
+      let withIndex = Object.assign(this.props.elements[i].meta, {
         index: i
       });
       rows.push(

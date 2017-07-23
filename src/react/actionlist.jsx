@@ -1,19 +1,19 @@
 import React from 'react';
-//import styles from './card.css.js';
+import ActionCard from './actioncard.jsx'
 
 export default class ActionList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      elements: props.elements,
       size: 0
     };
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
-    this.updateActions = this.updateActions.bind(this);
   }
 
   updateWindowDimensions() {
-    this.setState({size: window.innerHeight-30});
+    this.setState({
+      size: window.innerHeight - 30
+    });
   }
 
   componentDidMount() {
@@ -25,25 +25,20 @@ export default class ActionList extends React.Component {
     window.removeEventListener('resize', this.updateWindowDimensions);
   }
 
-  updateActions(list) {
-    this.state = {
-      elements: list,
-      size: 0
-    };
-    this.updateWindowDimensions();
-  }
-
   render() {
-    var rows = [];
-    for (var i = 0; i < this.state.elements.length; i++) {
+    let rows = [];
+    for (let i = 0; i < this.props.elements.length; i++) {
+      let withIndex = Object.assign(this.props.elements[i], {
+        index: i
+      });
       rows.push(
-        <li>{this.state.elements[i]}</li>
+        <li><ActionCard {...withIndex}/></li>
       );
     }
 
     return (
-      <div class="ActionList" style={{}}>
-        <ul style={{
+      <div class="ActionList">
+        <ul id="actionlist_scroll" style={{
           padding: '0px',
           margin: '0px',
           overflowY: 'scroll',

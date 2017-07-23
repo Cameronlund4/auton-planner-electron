@@ -28,14 +28,17 @@ export default class App extends React.Component {
   }
 
   setSelected(selectedIndex) {
-    console.log("Selected: " + selectedIndex);
     let actions = this.state.actions
     if (this.state.selected != -1) {
       actions[this.state.selected].selected = false;
     }
-    actions[selectedIndex].selected = true;
-    this.setState(Object.assign(this.state, {selected: selectedIndex}));
-    console.log(actions[selectedIndex]);
+    if (selectedIndex == this.state.selected) { // Toggle selection, set false
+      actions[selectedIndex].selected = false;
+      this.setState(Object.assign(this.state, {selected: -1}));
+    } else { // New selection, set true
+      actions[selectedIndex].selected = true;
+      this.setState(Object.assign(this.state, {selected: selectedIndex}));
+    }
   }
 
   createAction(i) {
@@ -64,13 +67,19 @@ export default class App extends React.Component {
     }
   }
 
+  // NOTE: Inserting at index other than 0 or null may not work as expected
   addAction(action, index) {
     let actions = this.state.actions;
     if (index) {
-      actions.splice(index, 0, action);
+      if (index == 0) {
+        actions.unshift(action);
+      } else {
+        actions.splice(index, 0, action);
+      }
     } else {
       actions.push(action);
     }
+
     this.setState(Object.assign(this.state, {actions: actions}));
   }
 
@@ -80,14 +89,20 @@ export default class App extends React.Component {
     // TODO Scroll to the selected
   }
 
-  // TODO FIX: Isn't actually adding to the end, likely issue with addAction
   createActionBeforeSelected() {
-    this.state.selected != -1
-      ? this.addAction(this.createAction(this.state.actionCount++), this.state.selected)
-      : this.addAction(this.createAction(this.state.actionCount++), 0)
-    if (this.state.selected == -1) {
+    if (this.state.selected != -1) {
+      this.state.actions[this.state.selected].selected = false; // Unselect old
+      // Add new
+      this.addAction(this.createAction(this.state.actionCount++), this.state.selected)
+      let temp = this.state.selected;
+      this.state.selected = -1;
+      this.setSelected(temp);
+    } else {
+      this.addAction(this.createAction(this.state.actionCount++), 0);
+      // Select the new item
       this.setSelected(0);
     }
+
   }
 
   render() {

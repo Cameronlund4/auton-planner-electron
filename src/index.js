@@ -17,7 +17,8 @@ const createWindow = async () => {
     height: 750,
     minWidth: 1227, // Can we make this just mirror 'width?'
     minHeight: 750, // Can we make this just mirror 'height?'
-    title: ''
+    title: 'CHEAP',
+    icon: __dirname + '/assets/cheap_icon.png'
   });
   mainWindow.setMenu(null);
 

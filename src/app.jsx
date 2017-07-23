@@ -23,13 +23,12 @@ export default class App extends React.Component {
 
     let actions = [];
     let i = 0;
-    for (; i < 10; i++) {
+    for (; i < 1; i++) {
       actions.push(this.createAction(i));
     }
 
     this.state = {
       actions: actions,
-      actionCount: i,
       selected: -1
     };
   }
@@ -48,32 +47,9 @@ export default class App extends React.Component {
     }
   }
 
-  createAction(i) {
-    let src;
-    let type;
-    switch (i % 3) {
-      case 0:
-        src = "./assets/icon_drive.png";
-        type = "Drive";
-        break;
-      case 1:
-        src = "./assets/icon_position.png";
-        type = "Position";
-        break;
-      case 2:
-        src = "./assets/icon_turn.png";
-        type = "Turn";
-        break;
-    }
+  createAction() {
     let action = new AutonActionWrapper(this.setSelected);
-    action.autonAction = new this.actionTypes.drive();
-    action.meta = {
-      name: "Unnamed Action " + i,
-      type: type,
-      icon: src,
-      selectedCallback: this.setSelected,
-      selected: false
-    }
+    action.setAutonAction(new DriveAutonAction());
     return action;
   }
 
@@ -94,7 +70,7 @@ export default class App extends React.Component {
   }
 
   createActionAtEnd() {
-    this.addAction(this.createAction(this.state.actionCount++));
+    this.addAction(this.createAction());
     this.setSelected(this.state.actions.length - 1);
     // TODO Scroll to the selected
   }
@@ -103,12 +79,12 @@ export default class App extends React.Component {
     if (this.state.selected != -1) {
       this.state.actions[this.state.selected].meta.selected = false; // Unselect old
       // Add new
-      this.addAction(this.createAction(this.state.actionCount++), this.state.selected)
+      this.addAction(this.createAction(), this.state.selected)
       let temp = this.state.selected;
       this.state.selected = -1;
       this.setSelected(temp);
     } else {
-      this.addAction(this.createAction(this.state.actionCount++), 0);
+      this.addAction(this.createAction(), 0);
       // Select the new item
       this.setSelected(0);
     }

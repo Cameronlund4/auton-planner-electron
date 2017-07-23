@@ -13,10 +13,10 @@ if (isDevMode) enableLiveReload({strategy: 'react-hmr'});
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 700,
-    minWidth: 800, // Can we make this just mirror 'width?'
-    minHeight: 700, // Can we make this just mirror 'height?'
+    width: 1227,
+    height: 750,
+    minWidth: 1227, // Can we make this just mirror 'width?'
+    minHeight: 750, // Can we make this just mirror 'height?'
     title: ''
   });
   mainWindow.setMenu(null);
@@ -28,8 +28,7 @@ const createWindow = async () => {
   if (isDevMode) {
     await installExtension(REACT_DEVELOPER_TOOLS);
     mainWindow.webContents.openDevTools();
-    var size = mainWindow.getSize();
-    mainWindow.setSize(size[0]+200, size[1]);
+    let size = mainWindow.getSize();
   }
 
   // Emitted when the window is closed.

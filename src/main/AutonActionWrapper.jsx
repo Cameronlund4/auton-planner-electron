@@ -3,14 +3,18 @@ import AutonAction from './AutonAction.jsx'
 
 export default class AutonActionWrapper {
   constructor(selectedCallback) {
-    this.setAutonAction(new AutonAction());
     this.meta = {
       name: "Unsetup Action",
-      type: "No type setup",
-      icon: "",
-      selectedCallback: () => console.error("Action has no callback!"),
+      type: "<No Type>",
+      icon: "./assets/icon_unknown.png",
+      selectedCallback: (selectedCallback
+        ? selectedCallback
+        : (() => console.error("Action has no callback!"))),
       selected: false
     }
+    this.setAutonAction = this.setAutonAction.bind(this);
+    this.setAutonAction(new AutonAction());
+    console.log("Constructed AutonActionWrapper");
   }
 
   getGUI() {
@@ -19,6 +23,6 @@ export default class AutonActionWrapper {
 
   setAutonAction(action) {
     this.autonAction = action;
-    action.parent = this;
+    action.setParent(this);
   }
 }

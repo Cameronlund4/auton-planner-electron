@@ -101,7 +101,7 @@ export default class App extends React.Component {
     return (
       <div>
         <div style={styles.field}>
-          <Field img="./assets/itz_field.jpg" elements={this.state.actions}/>
+          <Field img="./assets/itz_field.jpg" elements={this.state.actions} selected={this.state.selected}/>
         </div>
 
         <div style={styles.panel}>
@@ -133,7 +133,7 @@ export default class App extends React.Component {
           </div>
 
           <div style={styles.panel_lower_right}>
-          <p>Lower right</p>
+            <p>Lower right</p>
           </div>
         </div>
       </div>

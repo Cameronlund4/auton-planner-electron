@@ -7,22 +7,33 @@ export default class Field extends React.Component {
     super(props);
     this.img = props.img;
     this.state = {
-      size: 0
+      size: 0,
+      selected: props.selected,
+      elements: props.elements
     };
     this.img_obj = new Image();
     this.img_obj.src = this.img;
     this.img_obj.onload = () => this.updateCanvas();
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
     this.updateCanvas = this.updateCanvas.bind(this);
+    this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
+  }
+
+  componentWillReceiveProps(prop) {
+    this.setState(Object.assign(this.state, {
+      selected: prop.selected,
+      elements: prop.elements
+    }));
+    this.updateCanvas();
   }
 
   updateWindowDimensions() {
     if ((window.innerWidth - 500) < window.innerHeight) {
-      this.setState({
+      this.setState(Object.assign(this.state, {
         size: (window.innerWidth - 500)
-      });
+      }));
     } else {
-      this.setState({size: window.innerHeight});
+      this.setState(Object.assign(this.state, {size: window.innerHeight}));
     }
     this.updateCanvas();
   }
@@ -52,9 +63,9 @@ export default class Field extends React.Component {
     ctx.drawImage(this.img_obj, 0, 0, this.state.size, this.state.size);
     // Let every action draw it's own thing using a robot object
     // TODO Make sure this robot is edited by reference
-    let robot = new Robot();
-    for (let i = 0; i < this.props.elements.length; i++) {
-      this.props.elements[i].autonAction.renderWithGraphics(robot, ctx);
+    let robot = new Robot(this.state.size, 0, 0, 135);
+    for (let i = 0; i < (this.state.selected) + 1; i++) {
+      this.state.elements[i].autonAction.renderWithGraphics(robot, ctx);
     }
   }
 

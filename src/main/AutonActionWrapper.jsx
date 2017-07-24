@@ -14,7 +14,6 @@ export default class AutonActionWrapper {
     }
     this.setAutonAction = this.setAutonAction.bind(this);
     this.setAutonAction(new AutonAction());
-    console.log("Constructed AutonActionWrapper");
   }
 
   getGUI() {

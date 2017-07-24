@@ -12,14 +12,28 @@ export default {
     height: '100%'
   },
 
-  panel_sub_left : {
-    width: '250px',
-    overflow: 'hidden',
-    cssFloat: 'left',
-    height: '100%'
+  panel_upper : {
+    height: '289px',
+    width:'489px',
+    borderWidth: '1px',
+    borderBottomStyle: 'solid',
+    borderLeftStyle: 'solid',
+    borderColor: 'lightgray',
+    padding: '5px',
+    overflowY: 'scroll'
   },
 
-  panel_sub_right: {
+  panel_lower_left : {
+    width: '249px',
+    overflow: 'hidden',
+    cssFloat: 'left',
+    height: '100%',
+    borderWidth: '1px',
+    borderLeftStyle: 'solid',
+    borderColor: 'lightgray'
+  },
+
+  panel_lower_right : {
     width: '240px',
     overflow: 'hidden',
     cssFloat: 'right',

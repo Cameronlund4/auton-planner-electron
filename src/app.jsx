@@ -106,7 +106,11 @@ export default class App extends React.Component {
 
         <div style={styles.panel}>
 
-          <div style={styles.panel_sub_left}>
+          <div style={styles.panel_upper}>
+            {actionGUI}
+          </div>
+
+          <div style={styles.panel_lower_left}>
             <ActionList elements={this.state.actions}/>
             <div style={{
               borderStyle: 'solid',
@@ -128,10 +132,9 @@ export default class App extends React.Component {
             </div>
           </div>
 
-          <div style={styles.panel_sub_right}>
-            {actionGUI}
+          <div style={styles.panel_lower_right}>
+          <p>Lower right</p>
           </div>
-
         </div>
       </div>
     );

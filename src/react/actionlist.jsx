@@ -12,7 +12,7 @@ export default class ActionList extends React.Component {
 
   updateWindowDimensions() {
     this.setState({
-      size: window.innerHeight - 30
+      size: window.innerHeight - 330
     });
   }
 

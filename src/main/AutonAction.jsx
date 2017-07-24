@@ -21,9 +21,8 @@ export default class AutonAction {
     this.gui = gui;
   }
 
-  // TODO Find out how we're handling this, adding graphics to a jsx?
-  renderWithGraphics(robot) {
-
+  renderWithGraphics(robot, ctx) {
+    ctx.fillRect(0,0,20,20);
   }
 
   renderWithoutGraphics(robot) {

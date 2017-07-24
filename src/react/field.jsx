@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Robot from './../main/Robot.jsx'
 
 export default class Field extends React.Component {
   constructor(props) {
@@ -39,14 +40,22 @@ export default class Field extends React.Component {
     if (!this.refs.canvas) {
       return;
     }
+    // Get the canvas
     let canvas = this.refs.canvas;
+    // Set the canvas to the right size
     canvas.setAttribute("width", this.state.size);
     canvas.setAttribute("height", this.state.size);
+    // Get the drawing context
     let ctx = canvas.getContext('2d');
-    console.log("Drawing image! Scale: " + this.state.size);
+    // Clear whatever we have and draw the field
     ctx.clearRect(0, 0, this.state.size, this.state.size);
     ctx.drawImage(this.img_obj, 0, 0, this.state.size, this.state.size);
-    //ctx.fillRect(0,0, 10, 10);
+    // Let every action draw it's own thing using a robot object
+    // TODO Make sure this robot is edited by reference
+    let robot = new Robot();
+    for (let i = 0; i < this.props.elements.length; i++) {
+      this.props.elements[i].autonAction.renderWithGraphics(robot, ctx);
+    }
   }
 
   render() {

@@ -7,6 +7,7 @@ export default class DriveAutonAction extends AutonAction {
     this.gui = <p>This be some DriveAutonAction</p>
     this.icon = "./assets/icon_drive.png"
     this.type = "Drive"
+    this.distance = 500;
   }
 
   setupGUI(gui) {
@@ -16,7 +17,7 @@ export default class DriveAutonAction extends AutonAction {
   renderWithGraphics(robot, ctx) {
     let x1 = robot.posx;
     let y1 = robot.posy;
-    robot.moveDistance(500); // mm mmToPixels(mm)
+    robot.moveDistance(this.distance); // mm mmToPixels(mm)
     let x2 = robot.posx;
     let y2 = robot.posy;
 

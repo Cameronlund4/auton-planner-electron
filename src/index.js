@@ -6,8 +6,8 @@ import { enableLiveReload } from 'electron-compile';
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
 
+// Set up live updating if this is in dev mode
 const isDevMode = process.execPath.match(/[\\/]electron/);
-
 if (isDevMode) enableLiveReload({strategy: 'react-hmr'});
 
 const createWindow = async () => {
@@ -15,11 +15,13 @@ const createWindow = async () => {
   mainWindow = new BrowserWindow({
     width: 1227,
     height: 750,
-    minWidth: 1227, // Can we make this just mirror 'width?'
-    minHeight: 750, // Can we make this just mirror 'height?'
+    minWidth: 1227, // TODO Can we make this just mirror 'width?'
+    minHeight: 750, // TODO Can we make this just mirror 'height?'
     title: 'CHEAP',
     icon: __dirname + '/assets/cheap_icon.png'
   });
+
+  // Remove the ugly default menu
   mainWindow.setMenu(null);
 
   // and load the index.html of the app.

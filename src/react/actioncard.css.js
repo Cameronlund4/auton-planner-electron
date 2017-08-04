@@ -1,14 +1,15 @@
+// CSS object for use within actioncard.jsx
 export default {
-  // Set up the size and container style
+  // Formats the container div of the card
   card : {
-    //borderStyle: 'solid',
-    //borderWidth: '1px',
     padding: '6px',
     borderBottomStyle: 'dashed',
     borderWidth: '1px',
     borderColor: 'lightgray'
   },
 
+  // Formats the image icon to the left of the text container div
+  // float: Keeps the image to the left of the text
   image : {
     width: '24px',
     height: '24px',
@@ -17,7 +18,7 @@ export default {
     paddingRight: '8px'
   },
 
-  // Space out the card elements
+  // Formats the top text, aka the action name
   textTop : {
     margin: '0px',
     fontFamily: 'Roboto',
@@ -26,7 +27,7 @@ export default {
     color: 'black'
   },
 
-  // Space out the card elements, excluding top padding
+  // Formats the bottom text, aka  the action type
   textBottom : {
     margin: '0px',
     fontFamily: 'Roboto',

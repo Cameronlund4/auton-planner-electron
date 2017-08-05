@@ -11,7 +11,7 @@ export default class Field extends React.Component {
     this.state = {
       size: 0, // The pixel size to render the field at
       selected: props.selected, // The selected element index
-      elements: props.elements // The list of auton actions elements
+      actionWrappers: props.actionWrappers // The list of auton action wrappers
     };
 
     this.img = props.img; // The image to draw as the field
@@ -30,7 +30,7 @@ export default class Field extends React.Component {
     // Update our state with the new props
     this.setState(Object.assign(this.state, {
       selected: prop.selected,
-      elements: prop.elements
+      actionWrappers: prop.actionWrappers
     }));
     this.updateCanvas(); // Redraw custom movement graphics
   }
@@ -70,7 +70,7 @@ export default class Field extends React.Component {
     // TODO Make sure this robot is edited by reference and not value
     let robot = new Robot(this.state.size, 0, 0, 135);
     for (let i = 0; i < (this.state.selected) + 1; i++) {
-      this.state.elements[i].autonAction.renderWithGraphics(robot, ctx);
+      this.state.actionWrappers[i].autonAction.renderWithGraphics(robot, ctx);
     }
   }
 

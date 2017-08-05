@@ -41,9 +41,9 @@ export default class ActionList extends React.Component {
     // Generate the HTML for each of the card metas
     // Basically, create an ActionCard component as a list element
     let rows = [];
-    for (let i = 0; i < this.props.elements.length; i++) {
-      // Pull the elements meta and tag on the index in the list
-      let withIndex = Object.assign(this.props.elements[i].meta, {index: i});
+    for (let i = 0; i < this.props.actionWrappers.length; i++) {
+      // Pull the actionWrappers meta and tag on the index in the list
+      let withIndex = Object.assign(this.props.actionWrappers[i].meta, {index: i});
       // Generate and push the ActionCard component to the list with meta
       rows.push(
         <li><ActionCard {...withIndex}/></li>

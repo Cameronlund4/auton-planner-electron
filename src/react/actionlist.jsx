@@ -5,35 +5,6 @@ import ActionCard from './actioncard.jsx'
 export default class ActionList extends React.Component {
   constructor(props) {
     super(props);
-
-    // Save any props to state
-    this.state = {
-      size: 0
-    };
-
-    // Bind the `this` keyword manually to any methods that need it (react):
-    this.updateWindow = this.updateWindow.bind(this);
-  }
-
-  updateWindow() {
-    // 330px taken up by the bottom buttons and top panel
-    // Set the window size to the available window height
-    this.setState({
-      size: window.innerHeight - 330
-    });
-  }
-
-  // When the component has been added to the active UI
-  componentDidMount() {
-    this.updateWindow();
-    // Add a listener to update whenever we resize
-    window.addEventListener('resize', this.updateWindow);
-  }
-
-  // When the component will ve removed from the active UI
-  componentWillUnmount() {
-    // Remove the update listener
-    window.removeEventListener('resize', this.updateWindow);
   }
 
   // Render the HTML for the component
@@ -57,7 +28,7 @@ export default class ActionList extends React.Component {
           padding: '0px',
           margin: '0px',
           overflowY: 'scroll',
-          height: this.state.size,
+          height: '270px',
           width: '250px'
         }}>
           {rows}

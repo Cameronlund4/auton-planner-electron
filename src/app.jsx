@@ -16,8 +16,9 @@ export default class App extends React.Component {
 
     // Store the list of available types of actions to create
     this.actionTypes = {
+      drive: DriveAutonAction,
       turn: TurnAutonAction,
-      drive: DriveAutonAction
+      size: '0px'
     }
 
     // Bind the `this` keyword manually to any methods that need it (react):
@@ -26,6 +27,7 @@ export default class App extends React.Component {
     this.createActionAtEnd = this.createActionAtEnd.bind(this);
     this.setSelected = this.setSelected.bind(this);
     this.createActionBeforeSelected = this.createActionBeforeSelected.bind(this);
+    this.updateWindow = this.updateWindow.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -40,6 +42,10 @@ export default class App extends React.Component {
       selected: -1 // Default selected to -1, aka no index selected
     };
   }
+
+  /*****************************************************************************
+  * Actions
+  *****************************************************************************/
 
   // Set the selected action index
   setSelected(selectedIndex) {
@@ -118,6 +124,31 @@ export default class App extends React.Component {
     // TODO Scroll to the selected action
   }
 
+  /*****************************************************************************
+  * GUI
+  *****************************************************************************/
+
+  updateWindow() {
+    // 300px taken up by the bottom buttons and top panel
+    // Set the window size to the available window height
+    this.setState(Object.assign(this.state, {
+      size: window.innerHeight - 310
+    }));
+  }
+
+  // When the component has been added to the active UI
+  componentDidMount() {
+    this.updateWindow();
+    // Add a listener to update whenever we resize
+    window.addEventListener('resize', this.updateWindow);
+  }
+
+  // When the component will ve removed from the active UI
+  componentWillUnmount() {
+    // Remove the update listener
+    window.removeEventListener('resize', this.updateWindow);
+  }
+
   // Render the HTML for the component
   render() {
     // Each AutonAction stores jsx to display. Grab it from the selected...
@@ -135,7 +166,9 @@ export default class App extends React.Component {
 
         <div style={styles.panel}>
 
-          <div style={styles.panel_upper}>
+          <div style={Object.assign(styles.panel_upper, {
+            height: (this.state.size + "px")
+          })}>
             {actionGUI}
           </div>
 
@@ -164,6 +197,7 @@ export default class App extends React.Component {
           <div style={styles.panel_lower_right}>
             <p>Lower right</p>
           </div>
+
         </div>
       </div>
     );

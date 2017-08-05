@@ -15,7 +15,6 @@ export default {
 
   // Upper section of the panel, contains action jsx
   panel_upper : {
-    height: '289px',
     width:'489px',
     borderWidth: '1px',
     borderBottomStyle: 'solid',
@@ -30,7 +29,7 @@ export default {
     width: '249px',
     overflow: 'hidden',
     cssFloat: 'left',
-    height: '100%',
+    height: '300px',
     borderWidth: '1px',
     borderLeftStyle: 'solid',
     borderColor: 'lightgray'
@@ -41,7 +40,7 @@ export default {
     width: '240px',
     overflow: 'hidden',
     cssFloat: 'right',
-    height: '100%',
+    height: '290px',
     padding: '5px'
   },
 

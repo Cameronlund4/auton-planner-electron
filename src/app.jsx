@@ -6,16 +6,17 @@ import styles from './app.css.js';
 import AutonAction from './main/AutonAction.jsx'
 import AutonActionWrapper from './main/AutonActionWrapper.jsx'
 import DriveAutonAction from './main/actions/DriveAutonAction.jsx'
+import TurnAutonAction from './main/actions/TurnAutonAction.jsx'
 
 // Root component for the whole project. Root of all gui generation
-// TODO (Project): Rename lists of actions/wrappers to be better recognized
 // TODO {Project}: Prevent highlighting of clickable areas
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
-    // TODO Replace with dynamic system
+    // Store the list of available types of actions to create
     this.actionTypes = {
+      turn: TurnAutonAction,
       drive: DriveAutonAction
     }
 
@@ -61,14 +62,15 @@ export default class App extends React.Component {
 
   // Create a new blank auton action wrapper and return it
   createActionWrapper() {
+    // Create a blank wrapper
     let actionWrapper = new AutonActionWrapper(this.setSelected);
-    // TODO Somehow find the first dynamically assigned action
-    actionWrapper.setAutonAction(new DriveAutonAction());
+    // Fill the wrapper with the first user defined action
+    actionWrapper.setAutonAction(new this.actionTypes[Object.keys(this.actionTypes)[0]]());
     return actionWrapper;
   }
 
   // Add an auton action at the given index in the list and redraw
-  // NOTE: Inserting at index other than 0 or null may not work as expected
+  // BUG: Inserting at index other than 0 or null may not work as expected
   addActionWrapper(actionWrapper, index) {
     let actionWrappers = this.state.actionWrappers;
     // If we were provided an index to insert at
@@ -98,7 +100,7 @@ export default class App extends React.Component {
   // If nothing is selected will create action at the beginning of the list
   createActionBeforeSelected() {
     if (this.state.selected != -1) { // If we have a selected index
-       // Unselect previously selected action
+      // Unselect previously selected action
       this.state.actionWrappers[this.state.selected].meta.selected = false;
       // Add new action to the index that the selected was at
       this.addActionWrapper(this.createActionWrapper(), this.state.selected)

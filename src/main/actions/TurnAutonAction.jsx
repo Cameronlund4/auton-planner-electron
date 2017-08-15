@@ -10,10 +10,6 @@ export default class TurnAutonAction extends AutonAction {
     this.distance = 500;
   }
 
-  setupGUI(gui) {
-    this.gui = gui;
-  }
-
   renderWithGraphics(robot, ctx) {
     let x1 = robot.posx;
     let y1 = robot.posy;

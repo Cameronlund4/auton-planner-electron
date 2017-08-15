@@ -8,14 +8,19 @@ import Robot from './robot.jsx'
 
 // TODO Document how to create a proper AutonAction extension
 export default class AutonAction {
-  constructor() {
+  constructor(updateCallback) {
     // Create a basic gui to tell the extender they forgot to overwrite this
-    this.gui = <p>Looks like you need to set up your GUI for this action! This can be done with the method:
-      <br/>
-      setupGUI(jsx element)</p>
     this.parent = null; // Holds the AutonActionWrapper parent
     this.icon = "./assets/icon_unknown.png";
     this.type = "<No Type>";
+    this.gui = this.renderGUI();
+  }
+
+  // To be called whenever a change is made that needs the action to be redrawn
+  onUpdate() {
+    if (this.parent != null)
+      this.parent.updateCallback();
+    this.gui = this.renderGUI();
   }
 
   // Save instance of our wrapper and update our wrappers meta
@@ -25,9 +30,12 @@ export default class AutonAction {
     wrapper.meta.type = this.type;
   }
 
-  // Set the jsx component that will be displayed for this component
-  setupGUI(gui) {
-    this.gui = gui;
+  // Render the jsx component that will be displayed for this component
+  renderGUI() {
+    return <p>Looks like you need to set up your GUI for this action! This can be done within the method:
+      <br/>
+      renderGUI()<br/><br/>
+      If you're setting the gui in another location than this method it will be overwritten by the default AutonAction method</p>
   }
 
   // Move the robot how this action would and draw any representations of this

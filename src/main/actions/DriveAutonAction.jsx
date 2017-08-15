@@ -4,14 +4,24 @@ import AutonAction from './../AutonAction.jsx'
 export default class DriveAutonAction extends AutonAction {
   constructor() {
     super();
-    this.gui = <p>This be some DriveAutonAction</p>
     this.icon = "./assets/icon_drive.png"
     this.type = "Drive"
     this.distance = 500;
+    this.renderGUI();
   }
 
-  setupGUI(gui) {
-    this.gui = gui;
+  onDistanceInput(event) {
+    this.distance = event.target.value;
+    this.onUpdate();
+  }
+
+  renderGUI() {
+    console.log("Rendering again")
+    return <div>
+      Distance: <br/>
+      <input type="number"
+        onChange={this.onDistanceInput.bind(this)} defaultValue={this.distance}/>
+    </div>
   }
 
   renderWithGraphics(robot, ctx) {

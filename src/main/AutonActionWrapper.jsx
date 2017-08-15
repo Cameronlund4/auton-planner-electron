@@ -6,7 +6,7 @@ import AutonAction from './AutonAction.jsx'
 // out based on types, keeping the wrapper the same. This keeps the...
 // reference to the action the same across type changes.
 export default class AutonActionWrapper {
-  constructor(selectedCallback) {
+  constructor(selectedCallback, updateCallback) {
     // Create the default meta for this action, will be modified by wrapepd...
     // AutonAction object via AutonAction.setParent
     this.meta = {
@@ -18,6 +18,9 @@ export default class AutonActionWrapper {
         : (() => console.error("Action has no callback!"))),
       selected: false
     }
+
+    // Store the callback to be called when
+    this.updateCallback = updateCallback;
 
     // Bind the `this` keyword manually to any methods that need it (react):
     this.setAutonAction = this.setAutonAction.bind(this);

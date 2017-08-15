@@ -22,6 +22,7 @@ export default class Field extends React.Component {
     // Bind the `this` keyword manually to any methods that need it (react):
     this.updateWindow = this.updateWindow.bind(this);
     this.updateCanvas = this.updateCanvas.bind(this);
+    this.handleClick = this.handleClick.bind(this);
     this.componentWillReceiveProps = this.componentWillReceiveProps.bind(this);
   }
 
@@ -41,12 +42,16 @@ export default class Field extends React.Component {
     this.updateWindow();
     // Add a listener to update whenever we resize
     window.addEventListener('resize', this.updateWindow);
+    // Add a listener to detect clicks
+    window.addEventListener('click', this.handleClick);
   }
 
   // When the component will ve removed from the active UI
   componentWillUnmount() {
     // Remove the update listener
     window.removeEventListener('resize', this.updateWindow);
+    // Remove click listener
+    window.removeEventListener('click', this.handleClick);
   }
 
   // Draw all the custom movement graphics onto the canvas element
@@ -72,6 +77,15 @@ export default class Field extends React.Component {
     for (let i = 0; i < (this.state.selected) + 1; i++) {
       this.state.actionWrappers[i].autonAction.renderWithGraphics(robot, ctx);
     }
+  }
+
+  // Handles when the field has been clicked, typically causing a new action
+  // to be made
+  handleClick(event) {
+    // If this click was outside the field...
+    if (event.clientX > this.state.size || event.clientY > this.state.size)
+      return; // Then we don't care about it, return
+    console.log("The click was within the field image!");
   }
 
   // Update the window dimensions then draw the custom graphics

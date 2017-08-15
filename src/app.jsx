@@ -28,6 +28,7 @@ export default class App extends React.Component {
     this.setSelected = this.setSelected.bind(this);
     this.createActionBeforeSelected = this.createActionBeforeSelected.bind(this);
     this.updateWindow = this.updateWindow.bind(this);
+    this.updateCanvas = this.updateCanvas.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -66,10 +67,20 @@ export default class App extends React.Component {
     }
   }
 
+  // Redraw the canvas when needed
+  updateCanvas() {
+    if (!this.refs.field) {
+      return;
+    }
+    let field = this.refs.field;
+    field.updateCanvas();
+    this.forceUpdate();
+  }
+
   // Create a new blank auton action wrapper and return it
   createActionWrapper() {
     // Create a blank wrapper
-    let actionWrapper = new AutonActionWrapper(this.setSelected);
+    let actionWrapper = new AutonActionWrapper(this.setSelected, this.updateCanvas);
     // Fill the wrapper with the first user defined action
     actionWrapper.setAutonAction(new this.actionTypes[Object.keys(this.actionTypes)[0]]());
     return actionWrapper;
@@ -161,7 +172,7 @@ export default class App extends React.Component {
     return (
       <div>
         <div style={styles.field}>
-          <Field img="./assets/itz_field.jpg" actionWrappers={this.state.actionWrappers} selected={this.state.selected}/>
+          <Field img="./assets/itz_field.jpg" actionWrappers={this.state.actionWrappers} selected={this.state.selected} ref="field"/>
         </div>
 
         <div style={styles.panel}>

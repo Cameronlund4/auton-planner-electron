@@ -26,18 +26,16 @@ export default class AutonActionWrapper {
     this.setAutonAction = this.setAutonAction.bind(this);
 
     // Set the current auton action to a blank/default action
-    this.setAutonAction(new AutonAction());
+    this.setAutonAction(<AutonAction updateCallback={updateCallback} wrapper={this}/>);
   }
 
-  // Returns the gui from the wrapepd AutonAction
+  // Returns the gui from the wrapped AutonAction
   getGUI() {
-    return this.autonAction.gui;
+    return this.autonAction;
   }
 
   // Sets the wrapped AutonAction
   setAutonAction(action) {
     this.autonAction = action;
-    // Tell this action this is the parent now and have it update our meta
-    action.setParent(this);
   }
 }

@@ -1,29 +1,27 @@
 import React from 'react';
 import AutonAction from './../AutonAction.jsx'
+import DriveAutonGUI from './DriveAutonGui.jsx'
 
 export default class DriveAutonAction extends AutonAction {
-  constructor() {
-    super();
-    this.icon = "./assets/icon_drive.png"
-    this.type = "Drive"
-    this.distance = 500;
-    this.renderGUI();
+  constructor(selectedCallback, redrawCallback) {
+    super(selectedCallback, redrawCallback);
+    // Overwrite the type data for this action
+    this.typeData = {
+      display: "Drive",
+      type: "DriveAutonAction",
+      icon: "./assets/icon_drive.png",
+      data: {distance: 0},
+      actionGUI: DriveAutonGUI
+    }
   }
 
+  // When theres new data, save the value to state and tell the action we updated
   onDistanceInput(event) {
     this.distance = event.target.value;
     this.onUpdate();
   }
 
-  renderGUI() {
-    console.log("Rendering again")
-    return <div>
-      Distance: <br/>
-      <input type="number"
-        onChange={this.onDistanceInput.bind(this)} defaultValue={this.distance}/>
-    </div>
-  }
-
+  // Draw on the field
   renderWithGraphics(robot, ctx) {
     let x1 = robot.posx;
     let y1 = robot.posy;

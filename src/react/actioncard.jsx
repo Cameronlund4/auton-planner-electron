@@ -10,7 +10,7 @@ export default class ActionCard extends React.Component {
   // Render the HTML for the component
   render() {
     return (
-      <div class="ActionCard" style={Object.assign(styles.card, {
+      <div className="ActionCard" style={Object.assign(styles.card, {
         background: this.props.selected
           ? 'lightgray'
           : 'white'

@@ -4,9 +4,7 @@ import ActionCard from './react/actioncard.jsx'
 import ActionList from './react/actionlist.jsx'
 import styles from './app.css.js';
 import AutonAction from './main/AutonAction.jsx'
-import AutonActionWrapper from './main/AutonActionWrapper.jsx'
 import DriveAutonAction from './main/actions/DriveAutonAction.jsx'
-import TurnAutonAction from './main/actions/TurnAutonAction.jsx'
 
 // Root component for the whole project. Root of all gui generation
 // TODO {Project}: Prevent highlighting of clickable areas
@@ -16,9 +14,7 @@ export default class App extends React.Component {
 
     // Store the list of available types of actions to create
     this.actionTypes = {
-      drive: DriveAutonAction,
-      turn: TurnAutonAction,
-      size: '0px'
+      drive: DriveAutonAction
     }
 
     // Bind the `this` keyword manually to any methods that need it (react):
@@ -80,10 +76,11 @@ export default class App extends React.Component {
   // Create a new blank auton action wrapper and return it
   createActionWrapper() {
     // Create a blank wrapper
-    let actionWrapper = new AutonActionWrapper(this.setSelected, this.updateCanvas);
+    //let actionWrapper = new AutonAction(this.setSelected, this.updateCanvas);
     // Fill the wrapper with the first user defined action
-    actionWrapper.setAutonAction(new this.actionTypes[Object.keys(this.actionTypes)[0]]());
-    return actionWrapper;
+    //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
+    //actionWrapper.setAutonAction(<ActionComponent/>);
+    return new this.actionTypes[Object.keys(this.actionTypes)[0]](this.setSelected, this.updateCanvas);
   }
 
   // Add an auton action at the given index in the list and redraw
@@ -166,7 +163,7 @@ export default class App extends React.Component {
     // action if there is one so we can display it. Otherwise, inejct empty div
     let actionGUI = <div/>;
     if (this.state.selected != -1) {
-      actionGUI = this.state.actionWrappers[this.state.selected].getGUI();
+      actionGUI = this.state.actionWrappers[this.state.selected].generateGUI();
     }
 
     return (

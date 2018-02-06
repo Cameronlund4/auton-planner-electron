@@ -75,7 +75,7 @@ export default class Field extends React.Component {
     // TODO Make sure this robot is edited by reference and not value
     let robot = new Robot(this.state.size, 0, 0, 135);
     for (let i = 0; i < (this.state.selected) + 1; i++) {
-      this.state.actionWrappers[i].autonAction.renderWithGraphics(robot, ctx);
+      this.state.actionWrappers[i].renderWithGraphics(robot, ctx);
     }
   }
 

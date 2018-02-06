@@ -15,15 +15,16 @@ export default class ActionList extends React.Component {
     for (let i = 0; i < this.props.actionWrappers.length; i++) {
       // Pull the actionWrappers meta and tag on the index in the list
       let withIndex = Object.assign(this.props.actionWrappers[i].meta, {index: i});
+      withIndex = Object.assign(withIndex, this.props.actionWrappers[i].typeData);
       // Generate and push the ActionCard component to the list with meta
       rows.push(
-        <li><ActionCard {...withIndex}/></li>
+        <li key={i}><ActionCard {...withIndex}/></li>
       );
     }
 
     // Create a list element containing all of the action cards in rows
     return (
-      <div class="ActionList">
+      <div className="ActionList">
         <ul id="actionlist_scroll" style={{
           padding: '0px',
           margin: '0px',

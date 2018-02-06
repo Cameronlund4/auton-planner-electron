@@ -1,41 +1,37 @@
 import React from 'react';
-import AutonActionWrapper from './AutonActionWrapper.jsx'
 import Robot from './robot.jsx'
-
-// Class to handle the code generation and graphics rendering for a certain...
-// type of action a robot may do in autonomous mode. This is intended to be...
-// extended.
 
 // TODO Document how to create a proper AutonAction extension
 export default class AutonAction {
-  constructor(updateCallback) {
-    // Create a basic gui to tell the extender they forgot to overwrite this
-    this.parent = null; // Holds the AutonActionWrapper parent
-    this.icon = "./assets/icon_unknown.png";
-    this.type = "<No Type>";
-    this.gui = this.renderGUI();
+  constructor(selectedCallback, redrawCallback) {
+    this.typeData = {
+      display: "Unsetup Action",
+      type: "UnsetAutonAction",
+      icon: "./assets/icon_unknown.png",
+      data: { },
+      actionGUI: <p>Looks like you need to set up your GUI for this action!</p>
+    }
+    this.meta = {
+      selected: false,
+      selectedCallback: (selectedCallback
+        ? selectedCallback
+        : (() => console.error("Action has no callback!")))
+    }
+    this.selectedCallback = selectedCallback;
+    this.redrawCallback = redrawCallback;
+    this.updateCallback = this.updateCallback.bind(this);
   }
 
-  // To be called whenever a change is made that needs the action to be redrawn
-  onUpdate() {
-    if (this.parent != null)
-      this.parent.updateCallback();
-    this.gui = this.renderGUI();
+  // When our GUI tells us we have new data, tell the field we need to redraw
+  updateCallback(data) {
+    this.typeData.data = data;
+    this.redrawCallback();
   }
 
-  // Save instance of our wrapper and update our wrappers meta
-  setParent(wrapper) {
-    this.parent = wrapper;
-    wrapper.meta.icon = this.icon;
-    wrapper.meta.type = this.type;
-  }
-
-  // Render the jsx component that will be displayed for this component
-  renderGUI() {
-    return <p>Looks like you need to set up your GUI for this action! This can be done within the method:
-      <br/>
-      renderGUI()<br/><br/>
-      If you're setting the gui in another location than this method it will be overwritten by the default AutonAction method</p>
+  // Generate the JSX for the gui for this action
+  generateGUI() {
+    var ActionGUI = this.typeData.actionGUI;
+    return (<ActionGUI data={this.typeData.data} updateCallback={this.updateCallback}/>);
   }
 
   // Move the robot how this action would and draw any representations of this

@@ -9,7 +9,8 @@ export default class DriveActionGUI extends React.Component {
 
   render() {
     console.log("Rendering again")
-    return (<div>
+    console.log(this.state.id)
+    return (<div id={new Date().getTime().toString()}>
       Distance: <br/>
       <input type="number"
         onChange={this.handleChange} value={this.state.distance}/>

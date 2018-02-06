@@ -30,6 +30,8 @@ export default class AutonAction {
 
   // Generate the JSX for the gui for this action
   generateGUI() {
+    console.log("Providing a new GUI with data!")
+    console.log(this.typeData.data)
     var ActionGUI = this.typeData.actionGUI;
     return (<ActionGUI data={this.typeData.data} updateCallback={this.updateCallback}/>);
   }

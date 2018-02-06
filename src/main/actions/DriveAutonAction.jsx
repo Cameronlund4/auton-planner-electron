@@ -10,22 +10,17 @@ export default class DriveAutonAction extends AutonAction {
       display: "Drive",
       type: "DriveAutonAction",
       icon: "./assets/icon_drive.png",
-      data: {distance: 0},
+      data: {distance: 0, id: new Date().getTime().toString()},
       actionGUI: DriveAutonGUI
     }
   }
 
-  // When theres new data, save the value to state and tell the action we updated
-  onDistanceInput(event) {
-    this.distance = event.target.value;
-    this.onUpdate();
-  }
-
   // Draw on the field
   renderWithGraphics(robot, ctx) {
+    console.log("Drawing DriveAutonAction "+this.typeData.data.distance)
     let x1 = robot.posx;
     let y1 = robot.posy;
-    robot.moveDistance(this.distance); // mm mmToPixels(mm)
+    robot.moveDistance(this.typeData.data.distance); // mm mmToPixels(mm)
     let x2 = robot.posx;
     let y2 = robot.posy;
 

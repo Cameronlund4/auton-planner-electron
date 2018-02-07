@@ -8,8 +8,6 @@ export default class DriveActionGUI extends React.Component {
   }
 
   render() {
-    console.log("Rendering again")
-    console.log(this.state.id)
     return (<div id={new Date().getTime().toString()}>
       Distance: <br/>
       <input type="number"
@@ -17,9 +15,14 @@ export default class DriveActionGUI extends React.Component {
     </div>);
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState(nextProps.data);
+  }
+
   handleChange(event) {
-    this.setState({distance: event.target.value});
-    this.props.updateCallback(this.state);
+    var newState = Object.assign(this.state, {distance: event.target.value});
+    this.props.updateCallback(newState);
+    this.setState(newState);
   }
 
 }

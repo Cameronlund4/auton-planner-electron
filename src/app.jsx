@@ -58,10 +58,8 @@ export default class App extends React.Component {
     } else
     // We're selecting somethign new, set it to be selected
     {
-      console.log("Selected component "+selectedIndex+" set!");
       actionWrappers[selectedIndex].meta.selected = true;
       this.setState(Object.assign(this.state, {selected: selectedIndex}));
-      console.log("Selected assert "+(this.state.selected == selectedIndex));
     }
   }
 
@@ -165,8 +163,9 @@ export default class App extends React.Component {
     // action if there is one so we can display it. Otherwise, inejct empty div
     let actionGUI = <div/>;
     if (this.state.selected != -1) {
-      console.log("Setting actionGUI to "+this.state.selected);
-      actionGUI = this.state.actionWrappers[this.state.selected].generateGUI();
+      var wrapper = this.state.actionWrappers[this.state.selected];
+      var ActionGUI = wrapper.typeData.actionGUI;
+      actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
     }
 
     return (

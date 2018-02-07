@@ -17,7 +17,6 @@ export default class DriveAutonAction extends AutonAction {
 
   // Draw on the field
   renderWithGraphics(robot, ctx) {
-    console.log("Drawing DriveAutonAction "+this.typeData.data.distance)
     let x1 = robot.posx;
     let y1 = robot.posy;
     robot.moveDistance(this.typeData.data.distance); // mm mmToPixels(mm)

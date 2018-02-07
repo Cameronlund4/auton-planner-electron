@@ -28,14 +28,6 @@ export default class AutonAction {
     this.redrawCallback();
   }
 
-  // Generate the JSX for the gui for this action
-  generateGUI() {
-    console.log("Providing a new GUI with data!")
-    console.log(this.typeData.data)
-    var ActionGUI = this.typeData.actionGUI;
-    return (<ActionGUI data={this.typeData.data} updateCallback={this.updateCallback}/>);
-  }
-
   // Move the robot how this action would and draw any representations of this
   // Is passed an instance of the canvas drawing context that the field is on
   renderWithGraphics(robot, ctx) {

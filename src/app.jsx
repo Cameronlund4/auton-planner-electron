@@ -84,6 +84,7 @@ export default class App extends React.Component {
   }
 
   // Add an auton action at the given index in the list and redraw
+  // TODO Confirm or deny the following
   // BUG: Inserting at index other than 0 or null may not work as expected
   addActionWrapper(actionWrapper, index) {
     let actionWrappers = this.state.actionWrappers;

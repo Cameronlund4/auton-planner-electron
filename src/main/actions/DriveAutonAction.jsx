@@ -10,7 +10,7 @@ export default class DriveAutonAction extends AutonAction {
       display: "Drive",
       type: "DriveAutonAction",
       icon: "./assets/icon_drive.png",
-      data: {distance: 0, id: new Date().getTime().toString()},
+      data: {distance: 0},
       actionGUI: DriveAutonGUI
     }
   }

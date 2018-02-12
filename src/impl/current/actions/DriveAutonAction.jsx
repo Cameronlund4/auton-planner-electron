@@ -1,5 +1,5 @@
 import React from 'react';
-import AutonAction from './../AutonAction.jsx'
+import AutonAction from './../../../main/actions/AutonAction.jsx'
 import DriveAutonGUI from './DriveAutonGui.jsx'
 
 export default class DriveAutonAction extends AutonAction {

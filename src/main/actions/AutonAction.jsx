@@ -1,5 +1,5 @@
 import React from 'react';
-import Robot from './robot.jsx'
+import Robot from './../robot.jsx'
 
 // TODO Document how to create a proper AutonAction extension
 export default class AutonAction {

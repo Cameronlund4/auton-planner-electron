@@ -1,5 +1,5 @@
 import React from 'react';
-import AutonAction from './../AutonAction.jsx'
+import AutonAction from './../../../main/actions/AutonAction.jsx'
 
 export default class TurnAutonAction extends AutonAction {
   constructor() {

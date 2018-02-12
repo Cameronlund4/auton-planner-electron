@@ -3,8 +3,7 @@ import Field from './main/react/field.jsx'
 import ActionCard from './main/react/actioncard.jsx'
 import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
-import AutonAction from './main/AutonAction.jsx'
-import DriveAutonAction from './main/actions/DriveAutonAction.jsx'
+import ActionProvider from './impl/current/ActionProvider.jsx'
 
 // Root component for the whole project. Root of all gui generation
 // TODO {Project}: Prevent highlighting of clickable areas
@@ -13,9 +12,7 @@ export default class App extends React.Component {
     super(props);
 
     // Store the list of available types of actions to create
-    this.actionTypes = {
-      drive: DriveAutonAction
-    }
+    this.actionTypes = new ActionProvider().actionTypes;
 
     // Bind the `this` keyword manually to any methods that need it (react):
     this.addActionWrapper = this.addActionWrapper.bind(this);

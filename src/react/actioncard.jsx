@@ -22,7 +22,7 @@ export default class ActionCard extends React.Component {
           overflow: 'hidden'
         }}>
           <p style={styles.textTop}>{this.props.name}</p>
-          <p style={styles.textBottom}>{this.props.type}</p>
+          <p style={styles.textBottom}>{this.props.display}</p>
         </div>
 
       </div>

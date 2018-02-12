@@ -5,7 +5,8 @@ export default {
     padding: '6px',
     borderBottomStyle: 'dashed',
     borderWidth: '1px',
-    borderColor: 'lightgray'
+    borderColor: 'lightgray',
+    height: '29px'
   },
 
   // Formats the image icon to the left of the text container div
@@ -13,9 +14,9 @@ export default {
   image : {
     width: '24px',
     height: '24px',
-    cssFloat: 'left',
     padding: '3px',
-    paddingRight: '8px'
+    paddingRight: '8px',
+    float: 'left'
   },
 
   // Formats the top text, aka the action name

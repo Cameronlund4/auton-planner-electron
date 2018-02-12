@@ -12,6 +12,7 @@ export default class AutonAction {
       actionGUI: <p>Looks like you need to set up your GUI for this action!</p>
     }
     this.meta = {
+      name: "Unnamed Auton Action",
       selected: false,
       selectedCallback: (selectedCallback
         ? selectedCallback

@@ -1,7 +1,7 @@
 import React from 'react';
-import Field from './react/field.jsx'
-import ActionCard from './react/actioncard.jsx'
-import ActionList from './react/actionlist.jsx'
+import Field from './main/react/field.jsx'
+import ActionCard from './main/react/actioncard.jsx'
+import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
 import AutonAction from './main/AutonAction.jsx'
 import DriveAutonAction from './main/actions/DriveAutonAction.jsx'
@@ -174,7 +174,7 @@ export default class App extends React.Component {
     return (
       <div>
         <div style={styles.field}>
-          <Field img="./assets/itz_field.jpg" actionWrappers={this.state.actionWrappers} selected={this.state.selected} ref="field"/>
+          <Field img="./impl/current/assets/game_field.jpg" actionWrappers={this.state.actionWrappers} selected={this.state.selected} ref="field"/>
         </div>
 
         <div style={styles.panel}>

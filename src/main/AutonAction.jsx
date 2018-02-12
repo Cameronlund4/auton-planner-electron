@@ -7,7 +7,7 @@ export default class AutonAction {
     this.typeData = {
       display: "Unsetup Action",
       type: "UnsetAutonAction",
-      icon: "./assets/icon_unknown.png",
+      icon: "./main/assets/icon_unknown.png",
       data: { },
       actionGUI: <p>Looks like you need to set up your GUI for this action!</p>
     }

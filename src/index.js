@@ -18,7 +18,7 @@ const createWindow = async () => {
     minWidth: 1227, // TODO Can we make this just mirror 'width?'
     minHeight: 750, // TODO Can we make this just mirror 'height?'
     title: 'CHEAP',
-    icon: __dirname + '/assets/cheap_icon.png'
+    icon: __dirname + '/main/assets/cheap_icon.png'
   });
 
   // Remove the ugly default menu

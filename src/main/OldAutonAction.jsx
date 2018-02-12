@@ -11,7 +11,7 @@ export default class AutonAction extends React.Component {
   constructor(props) {
     super(props);
     // Create a basic gui to tell the extender they forgot to overwrite this
-    this.props.wrapper.meta.icon = "./assets/icon_unknown.png";
+    this.props.wrapper.meta.icon = "./main/assets/icon_unknown.png";
     this.props.wrapper.meta.type = "<No Type>";
   }
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Robot from './../main/Robot.jsx'
+import Robot from './../Robot.jsx'
 
 // Component that handles the drawing of and interactions with the field display
 export default class Field extends React.Component {

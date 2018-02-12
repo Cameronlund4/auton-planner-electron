@@ -5,7 +5,7 @@ export default class TurnAutonAction extends AutonAction {
   constructor() {
     super();
     this.gui = <p>This be some TurnAutonAction</p>
-    this.icon = "./assets/icon_turn.png"
+    this.icon = "./main/assets/icon_turn.png"
     this.type = "Turn"
     this.distance = 500;
   }

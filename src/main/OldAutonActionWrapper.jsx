@@ -12,7 +12,7 @@ export default class AutonActionWrapper {
     this.meta = {
       name: "Unsetup Action",
       type: "<No Type>",
-      icon: "./assets/icon_unknown.png",
+      icon: "./main/assets/icon_unknown.png",
       selectedCallback: (selectedCallback
         ? selectedCallback
         : (() => console.error("Action has no callback!"))),

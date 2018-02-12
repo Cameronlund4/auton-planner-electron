@@ -9,7 +9,7 @@ export default class DriveAutonAction extends AutonAction {
     this.typeData = {
       display: "Drive",
       type: "DriveAutonAction",
-      icon: "./assets/icon_drive.png",
+      icon: "./main/assets/icon_drive.png",
       data: {distance: 0},
       actionGUI: DriveAutonGUI
     }

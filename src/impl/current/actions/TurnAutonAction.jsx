@@ -1,19 +1,26 @@
 import React from 'react';
 import AutonAction from './../../../main/actions/AutonAction.jsx'
+import DriveAutonGUI from './TurnAutonGui.jsx'
 
+// TODO Implement
 export default class TurnAutonAction extends AutonAction {
-  constructor() {
-    super();
-    this.gui = <p>This be some TurnAutonAction</p>
-    this.icon = "./main/assets/icon_turn.png"
-    this.type = "Turn"
-    this.distance = 500;
+  constructor(selectedCallback, redrawCallback) {
+    super(selectedCallback, redrawCallback);
+    // Overwrite the type data for this action
+    this.typeData = {
+      display: "Turn",
+      type: "TurnAutonAction",
+      icon: "./main/assets/icon_turn.png",
+      data: {distance: 0},
+      actionGUI: TurnAutonGUI
+    }
   }
 
+  // Draw on the field
   renderWithGraphics(robot, ctx) {
     let x1 = robot.posx;
     let y1 = robot.posy;
-    robot.moveDistance(this.distance); // mm mmToPixels(mm)
+    robot.moveDistance(this.typeData.data.distance); // mm mmToPixels(mm)
     let x2 = robot.posx;
     let y2 = robot.posy;
 

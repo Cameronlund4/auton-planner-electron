@@ -1,4 +1,5 @@
 import DriveAutonAction from './actions/DriveAutonAction.jsx'
+import TurnAutonAction from './actions/TurnAutonAction.jsx'
 
 export default class ActionProvider {
   constructor() {

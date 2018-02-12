@@ -6,7 +6,7 @@ export default {
     borderBottomStyle: 'dashed',
     borderWidth: '1px',
     borderColor: 'lightgray',
-    height: '29px'
+    height: '35px'
   },
 
   // Formats the image icon to the left of the text container div

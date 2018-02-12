@@ -30,7 +30,7 @@ export default class App extends React.Component {
     let actionWrappers = [];
     let i = 0;
     for (; i < 1; i++) {
-      actionWrappers.push(this.createActionWrapper(i));
+      actionWrappers.push(this.createActionWrapper(i+1));
     }
 
     // Save any states we need
@@ -74,13 +74,15 @@ export default class App extends React.Component {
   }
 
   // Create a new blank auton action wrapper and return it
-  createActionWrapper() {
+  createActionWrapper(index) {
     // Create a blank wrapper
     //let actionWrapper = new AutonAction(this.setSelected, this.updateCanvas);
     // Fill the wrapper with the first user defined action
     //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
     //actionWrapper.setAutonAction(<ActionComponent/>);
-    return new this.actionTypes[Object.keys(this.actionTypes)[0]](this.setSelected, this.updateCanvas);
+    let action = new this.actionTypes[Object.keys(this.actionTypes)[0]](this.setSelected, this.updateCanvas);
+    action.meta.name = "Unnamed Action "+index;
+    return action;
   }
 
   // Add an auton action at the given index in the list and redraw
@@ -105,7 +107,7 @@ export default class App extends React.Component {
 
   // Create an auton action at the end of the list
   createActionAtEnd() {
-    this.addActionWrapper(this.createActionWrapper());
+    this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1));
     this.setSelected(this.state.actionWrappers.length - 1);
     // TODO Scroll to the selected action
   }
@@ -118,7 +120,7 @@ export default class App extends React.Component {
       // Unselect previously selected action
       this.state.actionWrappers[this.state.selected].meta.selected = false;
       // Add new action to the index that the selected was at
-      this.addActionWrapper(this.createActionWrapper(), this.state.selected)
+      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1), this.state.selected)
       // Trick setSelected to think it's getting a new index when just...
       // feeding it back the same index
       let temp = this.state.selected;
@@ -126,7 +128,7 @@ export default class App extends React.Component {
       this.setSelected(temp);
     } else { // If we don't have a selected index
       // Create an action at the beginning of the list
-      this.addActionWrapper(this.createActionWrapper(), 0);
+      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1), 0);
       // Select the new action
       this.setSelected(0);
     }

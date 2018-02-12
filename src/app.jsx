@@ -177,7 +177,7 @@ export default class App extends React.Component {
 
         <div style={styles.panel}>
 
-          <div style={Object.assign(styles.panel_upper, {
+          <div style={Object.assign(Object.assign({}, styles.panel_upper), {
             height: (this.state.size + "px")
           })} id={this.state.selected}>
             {actionGUI}
@@ -192,13 +192,13 @@ export default class App extends React.Component {
               height: '30px',
               width: '248px'
             }}>
-              <button type="button" style={Object.assign(styles.buttonStyle, {
+              <button type="button" style={Object.assign(Object.assign({}, styles.buttonStyle), {
                 cssFloat: 'left',
                 borderWidth: '1px',
                 borderRightStyle: 'solid',
                 borderColor: 'lightgray'
               })} onClick={this.createActionAtEnd}>Add to end</button>
-              <button type="button" style={Object.assign(styles.buttonStyle, {
+              <button type="button" style={Object.assign(Object.assign({}, styles.buttonStyle), {
                 overflow: 'hidden',
                 borderStyle: 'none'
               })} onClick={this.createActionBeforeSelected}>Add before</button>

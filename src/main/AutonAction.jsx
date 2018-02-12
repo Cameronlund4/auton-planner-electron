@@ -40,6 +40,6 @@ export default class AutonAction {
   // Based on the robot given, render the code to perform this action on the
   // real robot
   renderCode(robot) {
-    return "// Looks like you need to setup renderCode(robot) in your action" + this.type + "!"
+    return "// Looks like you need to setup renderCode(robot) in your action " + this.typeData.type + "!"
   }
 }

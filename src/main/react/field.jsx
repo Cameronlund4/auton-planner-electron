@@ -60,19 +60,26 @@ export default class Field extends React.Component {
     if (!this.refs.canvas) {
       return;
     }
+
     // Get the stored canvas object
     let canvas = this.refs.canvas;
+
     // Set the canvas to the right size as set by updateWindow()
     canvas.setAttribute("width", this.state.size);
     canvas.setAttribute("height", this.state.size);
+
     // Get the drawing context to use
     let ctx = canvas.getContext('2d');
+
     // Clear whatever we already have
     ctx.clearRect(0, 0, this.state.size, this.state.size);
+
     // Draw the new properly sized field image
     ctx.drawImage(this.img_obj, 0, 0, this.state.size, this.state.size);
+
     // Let every action draw it's own thing using a robot object
     // TODO Make sure this robot is edited by reference and not value
+    // TODO Set the robot's starting positions
     let robot = new Robot(this.state.size, 0, 0, 135);
     for (let i = 0; i < (this.state.selected) + 1; i++) {
       this.state.actionWrappers[i].renderWithGraphics(robot, ctx);

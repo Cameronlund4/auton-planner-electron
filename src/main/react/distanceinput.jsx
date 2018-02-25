@@ -30,12 +30,12 @@ export default class DistanceInput extends React.Component {
         </option>
       );
     }
-    console.log("Setting dist "+this.state.distance);
+    console.log("Setting dist "+this.props.distance);
 
     return (<div>
       Distance: <br/>
       <input type="number" step="any"
-        onChange={this.handleDistanceChange} value={this.state.distance}/>
+        onChange={this.handleDistanceChange} value={this.props.distance}/>
       <select value={this.state.unit} onChange={this.handleUnitChange}>
         {rows}
       </select>
@@ -61,9 +61,9 @@ export default class DistanceInput extends React.Component {
 
   handleUnitChange(event) {
     let unit = event.target.value;
-    let percent = (this.state.distance/this.state.fieldTotal[unit])*100;
+    let percent = (this.props.distance/this.state.fieldTotal[this.props.unit]);
     //let newState = Object.assign(this.state, {unit: unit});
-    this.props.onChange({distance: this.state.distance, percent: percent, unit: unit});
+    this.props.onChange({distance: Math.round(this.state.fieldTotal[unit]*percent*1000)/1000, percent: percent*100, unit: unit});
     //this.setState(newState);
   }
 }

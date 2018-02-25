@@ -12,8 +12,8 @@ export default class Robot {
   constructor(fieldSize, posx, posy, rotation) {
     this.fieldSize = fieldSize;
     this.pos = {
-      x: posx | 0,
-      y: posy | 0,
+      x: posx | 0.0,
+      y: posy | 0.0,
       rotation: rotation | 0
     }
   }
@@ -67,10 +67,10 @@ export default class Robot {
   */
 
   getPixelsX() {
-    return (this.pos.x/100) * this.fieldSize;
+    return this.pos.x * this.fieldSize;
   }
 
   getPixelsY() {
-    return (this.pos.y/100) * this.fieldSize;
+    return this.pos.y * this.fieldSize;
   }
 }

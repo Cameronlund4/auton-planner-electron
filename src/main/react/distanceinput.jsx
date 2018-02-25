@@ -70,13 +70,13 @@ export default class DistanceInput extends React.Component {
   }
 
   handleDistanceChange(event) {
-    let percent = (event.target.value/this.state.fieldTotal[this.state.unit])*100;
+    let percent = (event.target.value/this.state.fieldTotal[this.state.unit]);
     this.props.onChange({distance: event.target.value, percent: percent, unit: this.state.unit});
   }
 
   handleUnitChange(event) {
     let unit = event.target.value;
     let percent = (this.props.distance/this.state.fieldTotal[this.props.unit]);
-    this.props.onChange({distance: Math.round(this.state.fieldTotal[unit]*percent*1000)/1000, percent: percent*100, unit: unit});
+    this.props.onChange({distance: Math.round(this.state.fieldTotal[unit]*percent*1000)/1000, percent: percent, unit: unit});
   }
 }

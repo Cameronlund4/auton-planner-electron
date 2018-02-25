@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import Robot from './../Robot.jsx'
 
 // Component that handles the drawing of and interactions with the field display
+// NOTE:  Position click of check might now be redundant due to click listner
+// NOTE: being on the component itself. Consider removing.
 export default class Field extends React.Component {
   constructor(props) {
     super(props);
@@ -42,16 +44,12 @@ export default class Field extends React.Component {
     this.updateWindow();
     // Add a listener to update whenever we resize
     window.addEventListener('resize', this.updateWindow);
-    // Add a listener to detect clicks
-    window.addEventListener('click', this.handleClick);
   }
 
   // When the component will ve removed from the active UI
   componentWillUnmount() {
     // Remove the update listener
     window.removeEventListener('resize', this.updateWindow);
-    // Remove click listener
-    window.removeEventListener('click', this.handleClick);
   }
 
   // Draw all the custom movement graphics onto the canvas element
@@ -115,6 +113,6 @@ export default class Field extends React.Component {
   render() {
     // For some reason this hates css defined dimensions...
     // Dimensions are set in updateCanvas via attributes
-    return <canvas ref="canvas"/>
+    return <canvas onClick={this.handleClick} ref="canvas"/>
   }
 }

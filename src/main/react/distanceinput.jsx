@@ -15,6 +15,7 @@ export default class DistanceInput extends React.Component {
       // 12 feet in the unit in the same index in this.state.units
       fieldTotal: [144, 6, 12, 3657.6, 365.76] // props.fieldTotal | [144, 6, 12, 3657.6, 365.76]
     }
+    this.precision = 0;
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleUnitChange = this.handleUnitChange.bind(this);
   }
@@ -32,9 +33,32 @@ export default class DistanceInput extends React.Component {
     }
     console.log("Setting dist "+this.props.distance);
 
+    var step = "";
+    if ((this.props.distance + "").split(".")[1]) {
+      var locprec = (this.props.distance + "").split(".")[1].length;
+      if (locprec > this.precision) {
+        this.precision = locprec;
+      }
+      step = "0.";
+      for (var i = 0; i < this.precision-1; i++) {
+        step += "0";
+      }
+      step += "1";
+    } else {
+      if (this.precision == 0) {
+        step = "any";
+      } else {
+        step = "0.";
+        for (var i = 0; i < this.precision-1; i++) {
+          step += "0";
+        }
+        step += "1";
+      }
+    }
+
     return (<div>
       Distance: <br/>
-      <input type="number" step="any"
+      <input type="number" step={step}
         onChange={this.handleDistanceChange} value={this.props.distance}/>
       <select value={this.state.unit} onChange={this.handleUnitChange}>
         {rows}

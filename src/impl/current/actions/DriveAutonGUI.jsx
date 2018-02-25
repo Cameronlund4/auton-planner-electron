@@ -1,17 +1,17 @@
 import React from 'react';
+import DistanceInput from './../../../main/react/distanceinput.jsx'
 
 export default class DriveActionGUI extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
-    this.handleChange = this.handleChange.bind(this);
+    this.handlePercent = this.handlePercent.bind(this);
   }
 
   render() {
+    console.log("Rendering "+this.state.distance);
     return (<div>
-      Distance: <br/>
-      <input type="number"
-        onChange={this.handleChange} value={this.state.distance}/>
+      <DistanceInput onChange={this.handlePercent} distance={this.state.distance} unit={this.state.unit}/>
     </div>);
   }
 
@@ -19,8 +19,8 @@ export default class DriveActionGUI extends React.Component {
     this.setState(nextProps.data);
   }
 
-  handleChange(event) {
-    var newState = Object.assign(this.state, {distance: event.target.value});
+  handlePercent(data) {
+    var newState = Object.assign(this.state, data);
     this.props.updateCallback(newState);
     this.setState(newState);
   }

@@ -10,7 +10,7 @@ export default class DriveAutonAction extends AutonAction {
       display: "Drive",
       type: "DriveAutonAction",
       icon: "./main/assets/icon_drive.png",
-      data: {distance: 0},
+      data: {percent: 0.0, distance: 0.0, unit: 0.0},
       actionGUI: DriveAutonGUI
     }
   }
@@ -21,7 +21,7 @@ export default class DriveAutonAction extends AutonAction {
     ctx.lineWidth = 2;
     ctx.fillStyle="#FF0000";
     ctx.moveTo(robot.getPixelsX(), robot.getPixelsY());
-    robot.moveDistance(this.typeData.data.distance);
+    robot.moveDistance(this.typeData.data.percent);
     ctx.lineTo(robot.getPixelsX(), robot.getPixelsY());
     ctx.stroke();
     ctx.moveTo(0, 0);

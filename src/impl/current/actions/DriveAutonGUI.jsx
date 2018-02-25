@@ -9,7 +9,6 @@ export default class DriveActionGUI extends React.Component {
   }
 
   render() {
-    console.log("Rendering "+this.state.distance);
     return (<div>
       <DistanceInput onChange={this.handlePercent} distance={this.state.distance} unit={this.state.unit}/>
     </div>);

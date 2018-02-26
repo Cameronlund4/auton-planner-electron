@@ -12,7 +12,7 @@ export default class TurnActionGUI extends React.Component {
     return (<div>
       Degrees: <br/>
       <input type="number"
-        onChange={this.handleChange} value={this.state.distance}/>
+        onChange={this.handleChange} value={this.state.degrees}/>
     </div>);
   }
 

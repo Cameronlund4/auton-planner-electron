@@ -85,6 +85,7 @@ export default class Field extends React.Component {
     // Draw every action, making sure to draw selected state
     for (let i = 0; i < (this.state.selected + 1); i++) {
       this.state.actionWrappers[i].renderWithGraphics(robot, ctx, this.state.selected == i);
+      ctx.resetTransform();
     }
     // Render the robot
     robot.renderWithGraphics(ctx);

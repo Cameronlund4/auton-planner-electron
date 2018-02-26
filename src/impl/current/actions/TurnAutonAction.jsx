@@ -23,6 +23,7 @@ export default class TurnAutonAction extends AutonAction {
     // Get the distance of the center of the robot to a corner
     var rad = (9/144)*Math.sqrt(2)*robot.fieldSize;
     // Rotate the canvas to be diagonal across the robot, orientation based on count
+    ctx.translate(robot.getPixelsX(), robot.getPixelsY());
     ctx.rotate(origAngle+(Math.PI/4)+((Math.PI/2)*count));
     // Draw an arc indicating where the turn will hit
     if (finalAngle-origAngle < 0) { // If the angle is negative
@@ -37,15 +38,13 @@ export default class TurnAutonAction extends AutonAction {
     // BUG end
     // Draw and return canvas to normal
     ctx.stroke();
-    ctx.rotate((((origAngle+(Math.PI/4)+((Math.PI/2)*count))))*-1);
+    ctx.resetTransform();
     ctx.closePath();
   }
 
   // Draw on the field
   renderWithGraphics(robot, ctx, selected) {
     ctx.beginPath();
-    ctx.shadowColor="black";
-    ctx.shadowBlur=20;
     // Grab the robot's starting angle
     var origAngle = robot.toRadians(robot.pos.rotation);
     // Turn the robot desired distance
@@ -54,14 +53,12 @@ export default class TurnAutonAction extends AutonAction {
     var finalAngle = robot.toRadians(robot.pos.rotation);
 
     if (selected) { // Show what the robot will hit
-      // Move the center of rotation to the center of the bot
-      ctx.translate(robot.getPixelsX(), robot.getPixelsY());
       // Rotate canvas to match rotation of the robot
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 1);
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 2);
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 3);
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 4);
-      ctx.translate(-robot.getPixelsX(),-robot.getPixelsX());
+      ctx.resetTransform();
     }
 
     // TODO Draw basic turn indicator

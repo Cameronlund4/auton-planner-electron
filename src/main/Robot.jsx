@@ -77,7 +77,6 @@ export default class Robot {
   renderWithGraphics(ctx) {
     ctx.beginPath();
     var size = (18/144)*this.fieldSize;
-    ctx.shadowColor="black";
     ctx.strokeStyle="black";
     ctx.fillStyle = "black";
     // Move the center of rotation to the center of the bot
@@ -91,8 +90,7 @@ export default class Robot {
     ctx.fillRect((size/2)-Math.round(size*0.1), -1*(size/2), Math.round(size*0.1), Math.round(size*0.1))
     // Draw and undo rotations/translations
     ctx.stroke();
-    ctx.rotate(this.pos.rotation*Math.PI/-180);
-    ctx.translate(-this.getPixelsX(),-this.getPixelsX());
+    ctx.resetTransform();
     ctx.closePath();
   }
 }

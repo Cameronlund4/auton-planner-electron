@@ -20,8 +20,6 @@ export default class DriveAutonAction extends AutonAction {
     ctx.beginPath();
     ctx.strokeStyle="black";
     ctx.fillStyle = "black";
-    ctx.shadowColor="black";
-    ctx.shadowBlur=20;
     ctx.lineWidth = 2;
 
     // 1st offset set. Considering robot front up, this translates points left/right half the robot length.
@@ -39,13 +37,13 @@ export default class DriveAutonAction extends AutonAction {
     // Grab where the robot started and start line there
     var xOrig = robot.getPixelsX();
     var yOrig = robot.getPixelsY();
-    ctx.moveTo(xOrig + xOff2, yOrig + yOff2);
+    ctx.moveTo(xOrig, yOrig);
     // Move the robot desired distance
     robot.moveDistance(this.typeData.data.percent);
     // Grab where the robot ends up and end the line there
     var xFinal = robot.getPixelsX();
     var yFinal = robot.getPixelsY();
-    ctx.lineTo(xFinal + xOff2, yFinal + yOff2);
+    ctx.lineTo(xFinal, yFinal);
     // Draw line and close path
     ctx.stroke();
     ctx.closePath();
@@ -65,7 +63,7 @@ export default class DriveAutonAction extends AutonAction {
     } else {
       // Draw a 6 pixel diameter around where the robot will end up.
       ctx.beginPath();
-      ctx.arc(xFinal+xOff2,yFinal+yOff2,3,0,2*Math.PI);
+      ctx.arc(xFinal,yFinal,3,0,2*Math.PI);
       ctx.fill();
       ctx.closePath();
     }

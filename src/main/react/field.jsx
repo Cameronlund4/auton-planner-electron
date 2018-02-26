@@ -72,6 +72,10 @@ export default class Field extends React.Component {
     // Clear whatever we already have
     ctx.clearRect(0, 0, this.state.size, this.state.size);
 
+    // Set shadows
+    ctx.shadowBlur=20;
+    ctx.shadowColor="black";
+
     // Draw the new properly sized field image
     ctx.drawImage(this.img_obj, 0, 0, this.state.size, this.state.size);
 
@@ -79,9 +83,12 @@ export default class Field extends React.Component {
     // TODO Make sure this robot is edited by reference and not value
     // TODO Set the robot's starting positions
     let robot = new Robot(this.state.size, 0, 0, 135);
-    for (let i = 0; i < (this.state.selected) + 1; i++) {
-      this.state.actionWrappers[i].renderWithGraphics(robot, ctx);
+    for (let i = 0; i < (this.state.selected); i++) {
+      this.state.actionWrappers[i].renderWithGraphics(robot, ctx, false);
     }
+    if (this.state.selected != -1)
+      this.state.actionWrappers[this.state.selected].renderWithGraphics(robot, ctx, true);
+    robot.renderWithGraphics(ctx);
   }
 
   // Handles when the field has been clicked, typically causing a new action

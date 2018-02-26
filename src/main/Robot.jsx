@@ -52,8 +52,8 @@ export default class Robot {
     setRotation(rotation | this.pos.rotation);
   }
 
-  // Moves the robot's position a certain distance in mm based on current...
-  // position and the current rotation of the robot
+  // Moves the robot's position a certain distance based on current position
+  // and the current rotation of the robot
   moveDistance(percent) {
     // `- (Math.PI / 2)` is to make 0 degrees be directly up on the field
     this.pos.x += Math.cos(this.toRadians(this.pos.rotation) - (Math.PI / 2)) * percent;
@@ -72,5 +72,27 @@ export default class Robot {
 
   getPixelsY() {
     return this.pos.y * this.fieldSize;
+  }
+
+  renderWithGraphics(ctx) {
+    ctx.beginPath();
+    var size = (18/144)*this.fieldSize;
+    ctx.shadowColor="black";
+    ctx.strokeStyle="black";
+    ctx.fillStyle = "black";
+    // Move the center of rotation to the center of the bot
+    ctx.translate(this.getPixelsX(), this.getPixelsY());
+    // Rotate canvas to match rotation of the robot
+    ctx.rotate(this.pos.rotation*Math.PI/180);
+    // Draw the outline of the bot
+    ctx.rect(-1*(size/2), -1*(size/2), size, size);
+    // Draw corners in the front of the bot to show where the front is
+    ctx.fillRect(-1*(size/2),-1*(size/2),Math.round(size*0.1), Math.round(size*0.1))
+    ctx.fillRect((size/2)-Math.round(size*0.1), -1*(size/2), Math.round(size*0.1), Math.round(size*0.1))
+    // Draw and undo rotations/translations
+    ctx.stroke();
+    ctx.rotate(this.pos.rotation*Math.PI/-180);
+    ctx.translate(0,0);
+    ctx.closePath();
   }
 }

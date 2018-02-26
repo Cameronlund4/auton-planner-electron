@@ -31,8 +31,9 @@ export default class AutonAction {
 
   // Move the robot how this action would and draw any representations of this
   // Is passed an instance of the canvas drawing context that the field is on
-  renderWithGraphics(robot, ctx) {
-    ctx.fillRect(0, 0, 20, 20);
+  renderWithGraphics(robot, ctx, selected) {
+    ctx.fillRect(10, 10, 20, 20);
+    ctx.stroke();
   }
 
   // Make the physical changes to the robot without drawing anything

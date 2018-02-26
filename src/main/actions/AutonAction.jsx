@@ -4,6 +4,7 @@ import Robot from './../robot.jsx'
 // TODO Document how to create a proper AutonAction extension
 export default class AutonAction {
   constructor(selectedCallback, redrawCallback) {
+    // Save the TypeData for this action, used for many purposes
     this.typeData = {
       display: "Unsetup Action",
       type: "UnsetAutonAction",
@@ -11,6 +12,7 @@ export default class AutonAction {
       data: { },
       actionGUI: <p>Looks like you need to set up your GUI for this action!</p>
     }
+    // Save the meta for this action, used to populate ActionCard, independent of type
     this.meta = {
       name: "Unnamed Auton Action",
       selected: false,
@@ -18,6 +20,7 @@ export default class AutonAction {
         ? selectedCallback
         : (() => console.error("Action has no callback!")))
     }
+    // Bind and save necessary methods
     this.selectedCallback = selectedCallback;
     this.redrawCallback = redrawCallback;
     this.updateCallback = this.updateCallback.bind(this);

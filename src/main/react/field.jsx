@@ -79,15 +79,14 @@ export default class Field extends React.Component {
     // Draw the new properly sized field image
     ctx.drawImage(this.img_obj, 0, 0, this.state.size, this.state.size);
 
-    // Let every action draw it's own thing using a robot object
-    // TODO Make sure this robot is edited by reference and not value
     // TODO Set the robot's starting positions
+    // Create the robot to be drawn and moved
     let robot = new Robot(this.state.size, 0.5, 0.5, 135);
-    for (let i = 0; i < (this.state.selected); i++) {
-      this.state.actionWrappers[i].renderWithGraphics(robot, ctx, false);
+    // Draw every action, making sure to draw selected state
+    for (let i = 0; i < (this.state.selected + 1); i++) {
+      this.state.actionWrappers[i].renderWithGraphics(robot, ctx, this.state.selected == i);
     }
-    if (this.state.selected != -1)
-      this.state.actionWrappers[this.state.selected].renderWithGraphics(robot, ctx, true);
+    // Render the robot
     robot.renderWithGraphics(ctx);
   }
 
@@ -97,8 +96,10 @@ export default class Field extends React.Component {
     // If this click was outside the field...
     if (event.clientX > this.state.size || event.clientY > this.state.size)
       return; // Then we don't care about it, return
+    // Convert coordinates into percentages
     var x = event.clientX/this.state.size;
     var y = event.clientY/this.state.size;
+    // IF an action is selected, tell it field was clicked
     if (this.state.selected != -1)
       this.state.actionWrappers[this.state.selected].onFieldClick(x, y);
   }

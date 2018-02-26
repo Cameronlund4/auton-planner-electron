@@ -15,7 +15,9 @@ export default class DistanceInput extends React.Component {
       // 12 feet in the unit in the same index in this.state.units
       fieldTotal: [144, 6, 12, 3657.6, 365.76] // props.fieldTotal | [144, 6, 12, 3657.6, 365.76]
     }
+    // Save the precision to use for input
     this.precision = 0;
+    // Bind necessary methods
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleUnitChange = this.handleUnitChange.bind(this);
   }
@@ -32,27 +34,26 @@ export default class DistanceInput extends React.Component {
       );
     }
 
+    // Figure out the step to be used
     var step = "";
-    if ((this.props.distance + "").split(".")[1]) {
+    if ((this.props.distance + "").split(".")[1]) { // If we have decimals
+      // Figure out how many decimals we need
       var locprec = (this.props.distance + "").split(".")[1].length;
-      if (locprec > this.precision) {
-        this.precision = locprec;
+      if (locprec > this.precision) { // If our decimal is more than previous
+        this.precision = locprec; // Use this new decimal
       }
+    } else { // If we do not have decimals
+      if (this.precision == 0) { // If we do not have a state stored
+        step = "any"; // Use default precision
+      }
+    }
+    // If we got a precision to set up, set it up for the input tag
+    if (step != "any") {
       step = "0.";
       for (var i = 0; i < this.precision-1; i++) {
         step += "0";
       }
       step += "1";
-    } else {
-      if (this.precision == 0) {
-        step = "any";
-      } else {
-        step = "0.";
-        for (var i = 0; i < this.precision-1; i++) {
-          step += "0";
-        }
-        step += "1";
-      }
     }
 
     return (<div>
@@ -74,6 +75,7 @@ export default class DistanceInput extends React.Component {
     this.props.onChange({distance: event.target.value, percent: percent, unit: this.state.unit});
   }
 
+  // When a unit changes, convert the current distance to that unit to 3 decimals
   handleUnitChange(event) {
     let unit = event.target.value;
     let percent = (this.props.distance/this.state.fieldTotal[this.props.unit]);

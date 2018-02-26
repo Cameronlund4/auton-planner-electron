@@ -97,7 +97,10 @@ export default class Field extends React.Component {
     // If this click was outside the field...
     if (event.clientX > this.state.size || event.clientY > this.state.size)
       return; // Then we don't care about it, return
-    console.log("The click was within the field image!");
+    var x = event.clientX/this.state.size;
+    var y = event.clientY/this.state.size;
+    if (this.state.selected != -1)
+      this.state.actionWrappers[this.state.selected].onFieldClick(x, y);
   }
 
   // Update the window dimensions then draw the custom graphics

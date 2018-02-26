@@ -39,6 +39,9 @@ export default class AutonAction {
   // Make the physical changes to the robot without drawing anything
   renderWithoutGraphics(robot) {}
 
+  // Tell the action when the field is clicked and where
+  onFieldClick(posx, posy) {}
+
   // Based on the robot given, render the code to perform this action on the
   // real robot
   renderCode(robot) {

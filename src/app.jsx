@@ -77,7 +77,7 @@ export default class App extends React.Component {
     // Fill the wrapper with the first user defined action
     //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
     //actionWrapper.setAutonAction(<ActionComponent/>);
-    let action = new this.actionTypes[Object.keys(this.actionTypes)[1]](this.setSelected, this.updateCanvas);
+    let action = new this.actionTypes[Object.keys(this.actionTypes)[0]](this.setSelected, this.updateCanvas);
     action.meta.name = "Unnamed Action "+index;
     return action;
   }

@@ -19,17 +19,17 @@ export default class TurnAutonAction extends AutonAction {
   drawArcedRegion(ctx, robot, origAngle, finalAngle, count) {
     ctx.beginPath();
     var rad = (9/144)*Math.sqrt(2)*robot.fieldSize;
-    ctx.strokeStyle="red";
+    ctx.strokeStyle = "red";
     ctx.fillStyle = "red";
     ctx.rotate(origAngle+(Math.PI/4)+((Math.PI/2)*count));
     if (finalAngle-origAngle < 0) {
       ctx.arc(0, 0, rad, finalAngle-origAngle, 0);
     } else {
-        ctx.arc(0, 0, rad, 0, finalAngle-origAngle);
+      ctx.arc(0, 0, rad, 0, finalAngle-origAngle);
     }
     // BUG This calculation is wrong, should always touch robot bordar
-    ctx.moveTo(rad,0);
-    ctx.lineTo(rad*(Math.cos(finalAngle-origAngle)),0);
+    // ctx.moveTo(rad,0);
+    // ctx.lineTo(rad*(Math.cos(finalAngle-origAngle)),0);
     // BUG end
     ctx.stroke();
     ctx.rotate((((origAngle+(Math.PI/4)+((Math.PI/2)*count))))*-1);
@@ -53,7 +53,6 @@ export default class TurnAutonAction extends AutonAction {
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 2);
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 3);
       this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 4);
-      ctx.stroke();
       ctx.translate(-robot.getPixelsX(),-robot.getPixelsX());
     }
 

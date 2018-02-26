@@ -56,6 +56,11 @@ export default class DriveAutonAction extends AutonAction {
       ctx.lineTo(xFinal+xOff1+xOff2, yFinal+yOff1+yOff2); // 2
       ctx.stroke();
       ctx.closePath();
+    } else {
+      ctx.beginPath();
+      ctx.arc(xFinal+xOff2,yFinal+yOff2,3,0,2*Math.PI);
+      ctx.fill();
+      ctx.closePath();
     }
   }
 

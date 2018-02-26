@@ -32,17 +32,19 @@ export default class DriveAutonAction extends AutonAction {
     var xOff1 = (9/144)*robot.fieldSize*Math.cos(robot.toRadians(robot.pos.rotation));
     var yOff1 = (9/144)*robot.fieldSize*Math.sin(robot.toRadians(robot.pos.rotation));
     var xOff2 = (9/144)*robot.fieldSize*Math.cos(robot.toRadians(robot.pos.rotation+90));
+    xOff2 *= (this.typeData.data.percent > 0 ? 1 : -1);
     var yOff2 = (9/144)*robot.fieldSize*Math.sin(robot.toRadians(robot.pos.rotation+90));
+    yOff2 *= (this.typeData.data.percent > 0 ? 1 : -1);
     ctx.lineWidth = 2;
     // Main robot path
     ctx.beginPath();
     var xOrig = robot.getPixelsX();
     var yOrig = robot.getPixelsY();
-    ctx.moveTo(xOrig+xOff2, yOrig+yOff2);
+    ctx.moveTo(xOrig + xOff2, yOrig + yOff2);
     robot.moveDistance(this.typeData.data.percent);
     var xFinal = robot.getPixelsX();
     var yFinal = robot.getPixelsY();
-    ctx.lineTo(xFinal+xOff2, yFinal+yOff2);
+    ctx.lineTo(xFinal + xOff2, yFinal + yOff2);
     ctx.stroke();
     ctx.closePath();
     // Hit mark

@@ -10,7 +10,7 @@ export default class TurnActionGUI extends React.Component {
 
   render() {
     return (<div>
-      Distance: <br/>
+      Degrees: <br/>
       <input type="number"
         onChange={this.handleChange} value={this.state.distance}/>
     </div>);
@@ -21,7 +21,7 @@ export default class TurnActionGUI extends React.Component {
   }
 
   handleChange(event) {
-    var newState = Object.assign(this.state, {distance: event.target.value});
+    var newState = Object.assign(this.state, {degrees: event.target.value});
     this.props.updateCallback(newState);
     this.setState(newState);
   }

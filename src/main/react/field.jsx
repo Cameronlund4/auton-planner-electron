@@ -82,7 +82,7 @@ export default class Field extends React.Component {
     // Let every action draw it's own thing using a robot object
     // TODO Make sure this robot is edited by reference and not value
     // TODO Set the robot's starting positions
-    let robot = new Robot(this.state.size, 0, 0, 135);
+    let robot = new Robot(this.state.size, 0.5, 0.5, 135);
     for (let i = 0; i < (this.state.selected); i++) {
       this.state.actionWrappers[i].renderWithGraphics(robot, ctx, false);
     }

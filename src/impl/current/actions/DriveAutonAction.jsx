@@ -20,6 +20,7 @@ export default class DriveAutonAction extends AutonAction {
     ctx.beginPath();
     ctx.strokeStyle="black";
     ctx.fillStyle = "black";
+    
     if (selected) {
       ctx.shadowColor="#FFFF00";
       ctx.shadowBlur=10;
@@ -27,6 +28,7 @@ export default class DriveAutonAction extends AutonAction {
       ctx.shadowColor="black";
       ctx.shadowBlur=20;
     }
+
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(robot.getPixelsX(), robot.getPixelsY());

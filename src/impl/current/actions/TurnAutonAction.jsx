@@ -1,6 +1,6 @@
 import React from 'react';
 import AutonAction from './../../../main/actions/AutonAction.jsx'
-import DriveAutonGUI from './TurnAutonGui.jsx'
+import TurnAutonGUI from './TurnAutonGui.jsx'
 
 // TODO Implement
 export default class TurnAutonAction extends AutonAction {
@@ -11,26 +11,54 @@ export default class TurnAutonAction extends AutonAction {
       display: "Turn",
       type: "TurnAutonAction",
       icon: "./main/assets/icon_turn.png",
-      data: {distance: 0},
+      data: {degrees: 0},
       actionGUI: TurnAutonGUI
     }
   }
 
-  // Draw on the field
-  renderWithGraphics(robot, ctx) {
-    let x1 = robot.posx;
-    let y1 = robot.posy;
-    robot.moveDistance(this.typeData.data.distance); // mm mmToPixels(mm)
-    let x2 = robot.posx;
-    let y2 = robot.posy;
-
+  drawArcedRegion(ctx, robot, origAngle, finalAngle, count) {
     ctx.beginPath();
-    ctx.lineWidth = 2;
-    ctx.fillStyle="#FF0000";
-    ctx.moveTo(robot.mmToPixels(x1), robot.mmToPixels(y1));
-    ctx.lineTo(robot.mmToPixels(x2), robot.mmToPixels(y2));
+    var rad = (9/144)*Math.sqrt(2)*robot.fieldSize;
+    ctx.strokeStyle="red";
+    ctx.fillStyle = "red";
+    ctx.rotate(origAngle+(Math.PI/4)+((Math.PI/2)*count));
+    if (finalAngle-origAngle < 0) {
+      ctx.arc(0, 0, rad, finalAngle-origAngle, 0);
+    } else {
+        ctx.arc(0, 0, rad, 0, finalAngle-origAngle);
+    }
+    // BUG This calculation is wrong, should always touch robot bordar
+    ctx.moveTo(rad,0);
+    ctx.lineTo(rad*(Math.cos(finalAngle-origAngle)),0);
+    // BUG end
     ctx.stroke();
-    ctx.moveTo(0, 0);
+    ctx.rotate((((origAngle+(Math.PI/4)+((Math.PI/2)*count))))*-1);
+    ctx.closePath();
+  }
+
+  // Draw on the field
+  renderWithGraphics(robot, ctx, selected) {
+    ctx.shadowColor="black";
+    ctx.shadowBlur=20;
+    ctx.beginPath();
+    var origAngle = robot.toRadians(robot.pos.rotation);
+    robot.addRotation(parseInt(this.typeData.data.degrees));
+    var finalAngle = robot.toRadians(robot.pos.rotation);
+
+    if (selected) { // Show what the robot will hit
+      // Move the center of rotation to the center of the bot
+      ctx.translate(robot.getPixelsX(), robot.getPixelsY());
+      // Rotate canvas to match rotation of the robot
+      this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 1);
+      this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 2);
+      this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 3);
+      this.drawArcedRegion(ctx, robot, origAngle, finalAngle, 4);
+      ctx.stroke();
+      ctx.translate(-robot.getPixelsX(),-robot.getPixelsX());
+    }
+
+    // TODO Draw basic turn indicator
+    ctx.closePath();
   }
 
 }

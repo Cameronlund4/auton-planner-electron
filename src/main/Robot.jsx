@@ -12,9 +12,9 @@ export default class Robot {
   constructor(fieldSize, posx, posy, rotation) {
     this.fieldSize = fieldSize;
     this.pos = {
-      x: posx | 0.0,
-      y: posy | 0.0,
-      rotation: rotation | 0
+      x: posx,
+      y: posy,
+      rotation: rotation
     }
   }
 
@@ -39,17 +39,17 @@ export default class Robot {
   }
 
   addRotation(degrees) {
-    setRotation(this.pos.rotation + degrees);
+    this.setRotation(this.pos.rotation + degrees);
   }
 
   subtractRotation(degrees) {
-    setRotation(this.pos.rotation - degrees);
+    this.setRotation(this.pos.rotation - degrees);
   }
 
   setPos(posx, posy, rotation) {
-    setPosX(posx);
-    setPosY(posy);
-    setRotation(rotation | this.pos.rotation);
+    this.setPosX(posx);
+    this.setPosY(posy);
+    this.setRotation(rotation | this.pos.rotation);
   }
 
   // Moves the robot's position a certain distance based on current position
@@ -92,7 +92,7 @@ export default class Robot {
     // Draw and undo rotations/translations
     ctx.stroke();
     ctx.rotate(this.pos.rotation*Math.PI/-180);
-    ctx.translate(0,0);
+    ctx.translate(-this.getPixelsX(),-this.getPixelsX());
     ctx.closePath();
   }
 }

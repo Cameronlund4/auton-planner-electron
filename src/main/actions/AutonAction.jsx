@@ -24,6 +24,12 @@ export default class AutonAction {
     this.selectedCallback = selectedCallback;
     this.redrawCallback = redrawCallback;
     this.updateCallback = this.updateCallback.bind(this);
+    this.updateMeta = this.updateMeta.bind(this);
+  }
+
+  updateMeta(meta) {
+    this.meta = meta;
+    this.selectedCallback = this.meta.selectedCallback;
   }
 
   // When our GUI tells us we have new data, tell the field we need to redraw

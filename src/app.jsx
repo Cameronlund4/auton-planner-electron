@@ -22,12 +22,13 @@ export default class App extends React.Component {
     this.createActionBeforeSelected = this.createActionBeforeSelected.bind(this);
     this.updateWindow = this.updateWindow.bind(this);
     this.updateCanvas = this.updateCanvas.bind(this);
+    this.onActionTypeChange = this.onActionTypeChange.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
     let i = 0;
     for (; i < 1; i++) {
-      actionWrappers.push(this.createActionWrapper(i+1));
+      actionWrappers.push(this.createActionWrapper(i+1, Object.keys(this.actionTypes)[0]));
     }
 
     // Save any states we need
@@ -71,13 +72,13 @@ export default class App extends React.Component {
   }
 
   // Create a new blank auton action wrapper and return it
-  createActionWrapper(index) {
+  createActionWrapper(index, type) {
     // Create a blank wrapper
     //let actionWrapper = new AutonAction(this.setSelected, this.updateCanvas);
     // Fill the wrapper with the first user defined action
     //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
     //actionWrapper.setAutonAction(<ActionComponent/>);
-    let action = new this.actionTypes[Object.keys(this.actionTypes)[0]](this.setSelected, this.updateCanvas);
+    let action = new this.actionTypes[type](this.setSelected, this.updateCanvas);
     action.meta.name = "Unnamed Action "+index;
     return action;
   }
@@ -104,7 +105,7 @@ export default class App extends React.Component {
 
   // Create an auton action at the end of the list
   createActionAtEnd() {
-    this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1));
+    this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]));
     this.setSelected(this.state.actionWrappers.length - 1);
     // TODO Scroll to the selected action
   }
@@ -117,7 +118,7 @@ export default class App extends React.Component {
       // Unselect previously selected action
       this.state.actionWrappers[this.state.selected].meta.selected = false;
       // Add new action to the index that the selected was at
-      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1), this.state.selected)
+      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]), this.state.selected)
       // Trick setSelected to think it's getting a new index when just...
       // feeding it back the same index
       let temp = this.state.selected;
@@ -125,7 +126,7 @@ export default class App extends React.Component {
       this.setSelected(temp);
     } else { // If we don't have a selected index
       // Create an action at the beginning of the list
-      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1), 0);
+      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]), 0);
       // Select the new action
       this.setSelected(0);
     }
@@ -157,6 +158,22 @@ export default class App extends React.Component {
     window.removeEventListener('resize', this.updateWindow);
   }
 
+  onActionTypeChange(newType) {
+    console.log(event.target.value);
+    // Grab our current action wrappers
+    let actionWrappers = this.state.actionWrappers;
+    // Create a new action with the new type
+    let index = this.state.actionWrappers.length+1;
+    let type = Object.keys(this.actionTypes)[event.target.value];
+    let newAction = this.createActionWrapper(index, type);
+    // Swap the old meta into the new action
+    newAction.updateMeta(this.state.actionWrappers[this.state.selected].meta);
+    // Replace the old action
+    actionWrappers[this.state.selected] = newAction;
+    // Update actions back into state
+    this.setState(Object.assign(this.state, {actionWrappers: actionWrappers}));
+  }
+
   // Render the HTML for the component
   render() {
     // Each AutonAction stores jsx to display. Grab it from the selected...
@@ -166,6 +183,25 @@ export default class App extends React.Component {
       var wrapper = this.state.actionWrappers[this.state.selected];
       var ActionGUI = wrapper.typeData.actionGUI;
       actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
+    }
+
+    let actionSelect = (<div/>)
+    if (this.state.selected != -1) {
+      let rows = [];
+      for (let i = 0; i < Object.keys(this.actionTypes).length; i++) {
+        // Generate and push the input unit items to the input
+        rows.push(
+          <option value={i} key={i}>
+            {Object.keys(this.actionTypes)[i]}
+          </option>
+        );
+      }
+
+      actionSelect = (<div>
+        Action: <select value={Object.keys(this.actionTypes).indexOf(this.state.actionWrappers[this.state.selected].typeData.display)} onChange={this.onActionTypeChange}>
+          {rows}
+        </select>
+      </div>);
     }
 
     return (
@@ -205,7 +241,7 @@ export default class App extends React.Component {
           </div>
 
           <div style={styles.panel_lower_right}>
-            <p>Lower right</p>
+              {actionSelect}
           </div>
 
         </div>

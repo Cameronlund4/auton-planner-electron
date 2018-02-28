@@ -29,7 +29,7 @@ export default class ActionList extends React.Component {
           padding: '0px',
           margin: '0px',
           overflowY: 'scroll',
-          height: '270px',
+          height: '270',
           width: '250px'
         }}>
           {rows}

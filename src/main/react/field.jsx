@@ -81,7 +81,7 @@ export default class Field extends React.Component {
 
     // TODO Set the robot's starting positions
     // Create the robot to be drawn and moved
-    let robot = new Robot(this.state.size, 0.5, 0.5, 135);
+    let robot = new Robot(this.state.size, 0.75, .8, 0);
     // Draw every action, making sure to draw selected state
     for (let i = 0; i < (this.state.selected + 1); i++) {
       this.state.actionWrappers[i].renderWithGraphics(robot, ctx, this.state.selected == i);
@@ -109,14 +109,14 @@ export default class Field extends React.Component {
   updateWindow() {
     // 500px taken up by the right panel containing everything but the field
     // If the available width is smaller than the height...
-    if ((window.innerWidth - 500) < window.innerHeight) {
+    if ((window.innerWidth - 575) < window.innerHeight) {
       // Set the field size to be that of the available width of the window
       this.setState(Object.assign(this.state, {
-        size: (window.innerWidth - 500)
+        size: (window.innerWidth - 575)
       }));
     } else {
       // Set the field size to be that of the height of the window
-      this.setState(Object.assign(this.state, {size: window.innerHeight}));
+      this.setState(Object.assign(this.state, {size: (window.innerHeight+2)}));
     }
     this.updateCanvas(); // Redraw custom movement graphics
   }

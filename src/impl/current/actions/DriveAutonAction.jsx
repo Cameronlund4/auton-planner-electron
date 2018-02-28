@@ -10,7 +10,7 @@ export default class DriveAutonAction extends AutonAction {
       display: "Drive",
       type: "DriveAutonAction",
       icon: "./main/assets/icon_drive.png",
-      data: {percent: 0.0, distance: 0.0, unit: 0.0},
+      data: {percent: 0.0, distance: 0.0, unit: 2},
       actionGUI: DriveAutonGUI
     }
   }

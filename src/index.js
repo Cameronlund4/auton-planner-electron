@@ -13,9 +13,9 @@ if (isDevMode) enableLiveReload({strategy: 'react-hmr'});
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 1227,
+    width: (1229+75),
     height: 750,
-    minWidth: 1227, // TODO Can we make this just mirror 'width?'
+    minWidth: (1229+75), // TODO Can we make this just mirror 'width?'
     minHeight: 750, // TODO Can we make this just mirror 'height?'
     title: 'CHEAP',
     icon: __dirname + '/main/assets/cheap_icon.png'

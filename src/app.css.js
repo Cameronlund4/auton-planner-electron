@@ -1,5 +1,5 @@
 // CSS object for use within app.jsx
-export default {
+export default { // TODO Correct comments in this file
   // Keep the field image to the left side of the screen
   field : {
     cssFloat: 'left'
@@ -8,20 +8,19 @@ export default {
   // Keep the panel to the right side of the screen and fit height
   panel : {
     overflow: 'hidden',
-    width: '500px',
+    width: '575px',
     cssFloat: 'right',
     height: '100%'
   },
 
   // Upper section of the panel, contains action jsx
   panel_upper : {
-    width:'489px',
+    width:'564px',
     borderWidth: '1px',
     borderBottomStyle: 'solid',
     borderLeftStyle: 'solid',
     borderColor: 'lightgray',
-    padding: '5px',
-    overflowY: 'scroll'
+    padding: '5px'
   },
 
   // Lower left section of panel, contains action list
@@ -29,19 +28,36 @@ export default {
     width: '249px',
     overflow: 'hidden',
     cssFloat: 'left',
-    height: '300px',
+    height: '325px',
     borderWidth: '1px',
     borderLeftStyle: 'solid',
+    borderColor: 'lightgray',
+    borderWidth: '1px',
+    borderRightStyle: 'solid',
     borderColor: 'lightgray'
   },
 
   // lower right section of the panel, contains action settings
   panel_lower_right : {
-    width: '240px',
+    width: '324px',
     overflow: 'hidden',
     cssFloat: 'right',
-    height: '290px',
-    padding: '5px'
+    height: '315px',
+    overflowY: 'scroll'
+  },
+
+  action_area_top : {
+    width: '100%',
+    borderWidth: '1px',
+    borderBottomStyle: 'solid',
+    padding: '5px',
+    borderColor: 'lightgray'
+  },
+
+  action_area_bottom : {
+    width: '100%',
+    padding: '5px',
+    height: '100px'
   },
 
   // Formatting for the action list

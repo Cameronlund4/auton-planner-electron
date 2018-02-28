@@ -11,9 +11,9 @@ export default class DistanceInput extends React.Component {
       // Determine which of the units we are using
       unit: props.unit,
       // Use given units or use the defaults
-      units: ["in","tiles","feet","mm","cm"], // props.units | ["in","tiles","feet","mm","cm"],
+      units: ["mm","cm","in","feet","tiles","league"],
       // 12 feet in the unit in the same index in this.state.units
-      fieldTotal: [144, 6, 12, 3657.6, 365.76] // props.fieldTotal | [144, 6, 12, 3657.6, 365.76]
+      fieldTotal: [3657.6, 365.76, 144, 12, 6, 0.000658]
     }
     // Save the precision to use for input
     this.precision = 0;

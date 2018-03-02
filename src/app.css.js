@@ -28,7 +28,7 @@ export default { // TODO Correct comments in this file
     borderLeftStyle: 'solid',
     borderColor: 'lightgray',
     padding: '5px',
-    height: '300px'
+    height: '350px'
   },
 
   panel_lower: {
@@ -63,7 +63,7 @@ export default { // TODO Correct comments in this file
   panel_lower_right : {
     width: '329px',
     overflow: 'hidden',
-    overflowY: 'scroll',
+    overflowY: 'auto',
     height: "100%"
   },
 
@@ -72,16 +72,12 @@ export default { // TODO Correct comments in this file
     borderWidth: '1px',
     borderBottomStyle: 'solid',
     padding: '5px',
-    borderColor: 'lightgray',
-    display: "flex",
-    flexDirection: "column"
+    borderColor: 'lightgray'
   },
 
   action_area_bottom : {
     width: '100%',
-    padding: '5px',
-    display: "flex",
-    flexDirection: "column"
+    padding: '5px'
   },
 
   // Formatting for the action list

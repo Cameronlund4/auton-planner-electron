@@ -28,9 +28,9 @@ export default class ActionList extends React.Component {
         padding: '0px',
         margin: '0px',
         overflow: "hidden",
-        overflowY: 'scroll',
+        overflowY: 'auto',
         width: '250px',
-        height: 'calc(100% - 344px)' // TODO More elegant solution
+        height: 'calc(100% - 393px)' // TODO More elegant solution
       }}>
         {rows}
       </ul>

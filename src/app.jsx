@@ -205,7 +205,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <div style={{ height: "100%", minHeight: "100%", backgroundColor: "blue"}}>
+      <div style={{height: "100%", minHeight: "100%"}}>
         <div style={styles.field}>
           <Field
             img="./impl/current/assets/game_field.jpg"
@@ -227,15 +227,14 @@ export default class App extends React.Component {
 
           <div style={styles.panel_lower}>
             <div style={styles.panel_lower_left}>
-              <ActionList actionWrappers={this.state.actionWrappers} />
+              <ActionList actionWrappers={this.state.actionWrappers}/>
               <div
                 style={{
                   borderStyle: "solid",
                   borderWidth: "1px",
                   borderColor: "lightgray",
                   height: "30px",
-                  width: "248px",
-                  alignSelf: "flex-end"
+                  width: "248px"
                 }}
               >
                 <button

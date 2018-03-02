@@ -2,8 +2,7 @@
 export default { // TODO Correct comments in this file
   screen : {
     height: "100%",
-    minHeight: "100%",
-    backgroundColor: "blue"
+    minHeight: "100%"
   },
 
   // Keep the field image to the left side of the screen
@@ -18,8 +17,7 @@ export default { // TODO Correct comments in this file
     cssFloat: 'right',
     height: "100%",
     minHeight: "100%",
-    display: "grid",
-    backgroundColor: "red"
+    display: "grid"
   },
 
   // Upper section of the panel, contains action jsx
@@ -39,15 +37,16 @@ export default { // TODO Correct comments in this file
     justifyContent: "space-between",
     width: "575px",
     flexGrow: "1",
-    backgroundColor: "green",
     overflow: "hidden",
     height: "100%"
   },
 
   // Lower left section of panel, contains action list
   panel_lower_left : {
-    display: "flex",
-    flexDirection: "column",
+    // display: "flex",
+    // flexDirection: "column",
+    // flexWrap: "nowrap",
+    position: 'relative',
     width: '249px',
     overflow: 'hidden',
     cssFloat: 'left',

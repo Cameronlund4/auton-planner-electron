@@ -24,17 +24,16 @@ export default class ActionList extends React.Component {
 
     // Create a list element containing all of the action cards in rows
     return (
-      <div className="ActionList" style={{display: "flex",
-      flexDirection: "column"}}>
-        <ul id="actionlist_scroll" style={{
-          padding: '0px',
-          margin: '0px',
-          overflowY: 'scroll',
-          width: '250px'
-        }}>
-          {rows}
-        </ul>
-      </div>
+      <ul id="actionlist_scroll" style={{
+        padding: '0px',
+        margin: '0px',
+        overflow: "hidden",
+        overflowY: 'scroll',
+        width: '250px',
+        height: 'calc(100% - 344px)' // TODO More elegant solution
+      }}>
+        {rows}
+      </ul>
     );
   }
 }

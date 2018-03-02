@@ -177,15 +177,15 @@ export default class App extends React.Component {
   // Render the HTML for the component
   render() {
     // Each AutonAction stores jsx to display. Grab it from the selected...
-    // action if there is one so we can display it. Otherwise, inejct empty div
-    let actionGUI = <div/>;
+    // action if there is one so we can display it. Otherwise, inejct empty
+    let actionGUI = (<div></div>);
     if (this.state.selected != -1) {
       var wrapper = this.state.actionWrappers[this.state.selected];
       var ActionGUI = wrapper.typeData.actionGUI;
       actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
     }
 
-    let actionSelect = (<div/>)
+    let actionSelect = (<div></div>);
     if (this.state.selected != -1) {
       let rows = [];
       for (let i = 0; i < Object.keys(this.actionTypes).length; i++) {
@@ -205,7 +205,7 @@ export default class App extends React.Component {
     }
 
     return (
-      <div>
+      <div style={{ height: "100%", minHeight: "100%", backgroundColor: "blue"}}>
         <div style={styles.field}>
           <Field
             img="./impl/current/assets/game_field.jpg"
@@ -218,51 +218,54 @@ export default class App extends React.Component {
         <div style={styles.panel}>
           <div
             style={Object.assign(Object.assign({}, styles.panel_upper), {
-              height: this.state.size + "px"
+              //height: this.state.size + "px"
             })}
             id={this.state.selected}
-          />
-
-          <div style={styles.panel_lower_left}>
-            <ActionList actionWrappers={this.state.actionWrappers} />
-            <div
-              style={{
-                borderStyle: "solid",
-                borderWidth: "1px",
-                borderColor: "lightgray",
-                height: "30px",
-                width: "248px"
-              }}
-            >
-              <button
-                type="button"
-                style={Object.assign(Object.assign({}, styles.buttonStyle), {
-                  cssFloat: "left",
-                  borderWidth: "1px",
-                  borderRightStyle: "solid",
-                  borderColor: "lightgray"
-                })}
-                onClick={this.createActionAtEnd}
-              >
-                Add to end
-              </button>
-              <button
-                type="button"
-                style={Object.assign(Object.assign({}, styles.buttonStyle), {
-                  overflow: "hidden",
-                  borderStyle: "none"
-                })}
-                onClick={this.createActionBeforeSelected}
-              >
-                Add before
-              </button>
-            </div>
+          >
+            {" "}
           </div>
 
-          <div style={styles.panel_lower_right}>
-            {actionSelect}
-            <div style={styles.action_area_bottom}>
-              {actionGUI}
+          <div style={styles.panel_lower}>
+            <div style={styles.panel_lower_left}>
+              <ActionList actionWrappers={this.state.actionWrappers} />
+              <div
+                style={{
+                  borderStyle: "solid",
+                  borderWidth: "1px",
+                  borderColor: "lightgray",
+                  height: "30px",
+                  width: "248px",
+                  alignSelf: "flex-end"
+                }}
+              >
+                <button
+                  type="button"
+                  style={Object.assign(Object.assign({}, styles.buttonStyle), {
+                    cssFloat: "left",
+                    borderWidth: "1px",
+                    borderRightStyle: "solid",
+                    borderColor: "lightgray"
+                  })}
+                  onClick={this.createActionAtEnd}
+                >
+                  Add to end
+                </button>
+                <button
+                  type="button"
+                  style={Object.assign(Object.assign({}, styles.buttonStyle), {
+                    overflow: "hidden",
+                    borderStyle: "none"
+                  })}
+                  onClick={this.createActionBeforeSelected}
+                >
+                  Add before
+                </button>
+              </div>
+            </div>
+
+            <div style={styles.panel_lower_right}>
+              {actionSelect}
+              <div style={styles.action_area_bottom}>{actionGUI}</div>
             </div>
           </div>
         </div>

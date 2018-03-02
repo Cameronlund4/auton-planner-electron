@@ -1,5 +1,11 @@
 // CSS object for use within app.jsx
 export default { // TODO Correct comments in this file
+  screen : {
+    height: "100%",
+    minHeight: "100%",
+    backgroundColor: "blue"
+  },
+
   // Keep the field image to the left side of the screen
   field : {
     cssFloat: 'left'
@@ -10,7 +16,10 @@ export default { // TODO Correct comments in this file
     overflow: 'hidden',
     width: '575px',
     cssFloat: 'right',
-    height: '100%'
+    height: "100%",
+    minHeight: "100%",
+    display: "grid",
+    backgroundColor: "red"
   },
 
   // Upper section of the panel, contains action jsx
@@ -20,30 +29,43 @@ export default { // TODO Correct comments in this file
     borderBottomStyle: 'solid',
     borderLeftStyle: 'solid',
     borderColor: 'lightgray',
-    padding: '5px'
+    padding: '5px',
+    height: '300px'
+  },
+
+  panel_lower: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "575px",
+    flexGrow: "1",
+    backgroundColor: "green",
+    overflow: "hidden",
+    height: "100%"
   },
 
   // Lower left section of panel, contains action list
   panel_lower_left : {
+    display: "flex",
+    flexDirection: "column",
     width: '249px',
     overflow: 'hidden',
     cssFloat: 'left',
-    height: '325px',
     borderWidth: '1px',
     borderLeftStyle: 'solid',
     borderColor: 'lightgray',
     borderWidth: '1px',
     borderRightStyle: 'solid',
-    borderColor: 'lightgray'
+    borderColor: 'lightgray',
+    height: "100%"
   },
 
   // lower right section of the panel, contains action settings
   panel_lower_right : {
-    width: '324px',
+    width: '329px',
     overflow: 'hidden',
-    cssFloat: 'right',
-    height: '315px',
-    overflowY: 'scroll'
+    overflowY: 'scroll',
+    height: "100%"
   },
 
   action_area_top : {
@@ -51,13 +73,16 @@ export default { // TODO Correct comments in this file
     borderWidth: '1px',
     borderBottomStyle: 'solid',
     padding: '5px',
-    borderColor: 'lightgray'
+    borderColor: 'lightgray',
+    display: "flex",
+    flexDirection: "column"
   },
 
   action_area_bottom : {
     width: '100%',
     padding: '5px',
-    height: '100px'
+    display: "flex",
+    flexDirection: "column"
   },
 
   // Formatting for the action list

@@ -4,6 +4,7 @@ import ActionCard from './main/react/actioncard.jsx'
 import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
 import ActionProvider from './impl/current/ActionProvider.jsx'
+import Robot from './main/Robot.jsx'
 
 // Root component for the whole project. Root of all gui generation
 // TODO {Project}: Prevent highlighting of clickable areas
@@ -23,6 +24,7 @@ export default class App extends React.Component {
     this.updateWindow = this.updateWindow.bind(this);
     this.updateCanvas = this.updateCanvas.bind(this);
     this.onActionTypeChange = this.onActionTypeChange.bind(this);
+    this.generateCode = this.generateCode.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -174,6 +176,19 @@ export default class App extends React.Component {
     this.setState(Object.assign(this.state, {actionWrappers: actionWrappers}));
   }
 
+  generateCode() {
+    var code = "";
+    // TODO Set the robot's starting positions
+    // Create the robot to be drawn and moved
+    let robot = new Robot(this.state.size, 0.75, .8, 0);
+    // Draw every action, making sure to draw selected state
+    for (let i = 0; i < (this.state.selected + 1); i++) {
+      code += this.state.actionWrappers[i].renderCode(robot) + "\n";
+    }
+    console.log("Code: "+code);
+    return code;
+  }
+
   // Render the HTML for the component
   render() {
     // Each AutonAction stores jsx to display. Grab it from the selected...
@@ -204,6 +219,8 @@ export default class App extends React.Component {
       </div>);
     }
 
+    let code = this.generateCode();
+
     return (
       <div style={{height: "100%", minHeight: "100%"}}>
         <div style={styles.field}>
@@ -216,13 +233,8 @@ export default class App extends React.Component {
         </div>
 
         <div style={styles.panel}>
-          <div
-            style={Object.assign(Object.assign({}, styles.panel_upper), {
-              //height: this.state.size + "px"
-            })}
-            id={this.state.selected}
-          >
-            {" "}
+          <div style={styles.panel_upper} id={this.state.selected}>
+            <textarea style={{resize: "none", height: "300px", width: "554"}} value={this.generateCode()}/>
           </div>
 
           <div style={styles.panel_lower}>

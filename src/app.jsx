@@ -182,7 +182,7 @@ export default class App extends React.Component {
     // Create the robot to be drawn and moved
     let robot = new Robot(this.state.size, 0.75, .8, 0);
     // Draw every action, making sure to draw selected state
-    for (let i = 0; i < (this.state.selected + 1); i++) {
+    for (let i = 0; i < this.state.actionWrappers.length; i++) {
       code += this.state.actionWrappers[i].renderCode(robot) + "\n";
     }
     console.log("Code: "+code);

@@ -69,4 +69,7 @@ export default class DriveAutonAction extends AutonAction {
     }
   }
 
+  renderCode(robot) {
+    return "pseudoDriveMethod("+Math.floor(((144/(4*Math.PI))*360)*this.typeData.data.percent)+");";
+  }
 }

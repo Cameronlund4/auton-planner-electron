@@ -65,4 +65,7 @@ export default class TurnAutonAction extends AutonAction {
     ctx.closePath();
   }
 
+  renderCode(robot) {
+    return "pseudoTurnMethod("+this.typeData.data.degrees+");";
+  }
 }

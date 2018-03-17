@@ -13,16 +13,16 @@ if (isDevMode) enableLiveReload({strategy: 'react-hmr'});
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: (1229+75),
+    width: (1229+55),
     height: 750,
-    minWidth: (1229+75), // TODO Can we make this just mirror 'width?'
+    minWidth: (1229+55), // TODO Can we make this just mirror 'width?'
     minHeight: 750, // TODO Can we make this just mirror 'height?'
     title: 'CHEAP',
     icon: __dirname + '/main/assets/cheap_icon.png'
   });
 
   // Remove the ugly default menu
-  mainWindow.setMenu(null);
+  //mainWindow.setMenu(null);
 
   // and load the index.html of the app.
   mainWindow.loadURL(`file://${__dirname}/index.html`);

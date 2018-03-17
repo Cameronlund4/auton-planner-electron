@@ -109,10 +109,10 @@ export default class Field extends React.Component {
   updateWindow() {
     // 500px taken up by the right panel containing everything but the field
     // If the available width is smaller than the height...
-    if ((window.innerWidth - 575) < window.innerHeight) {
+    if ((window.innerWidth - 577) < window.innerHeight) {
       // Set the field size to be that of the available width of the window
       this.setState(Object.assign(this.state, {
-        size: (window.innerWidth - 575)
+        size: (window.innerWidth - 577)
       }));
     } else {
       // Set the field size to be that of the height of the window

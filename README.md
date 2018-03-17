@@ -25,6 +25,7 @@
 * ✔️ Automatically scales to any size window
 * ✔️ Supports and easily switches between units of measurements
 * ❌⏳ Save autons to a file and load at a later date
+* ❌⏳ Change robot starting position and angle (Can be done [here](https://github.com/Cameronlund4/auton-planner-electron/blob/master/src/main/react/field.jsx#L84); percent of field (x,y), angle w/ 0 up)
 * ❌ Click to move to point
 * ❌ Interactable game objects
 * ❌ Full usability with only keyboard

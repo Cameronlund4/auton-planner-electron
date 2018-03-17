@@ -7,6 +7,10 @@
 
 ---
 
+**This project is a WIP. Please excuse any lacking features and report any issues you find. Also, use this code at your own risk. Do not trust the generated auton to be perfect; always be ready to shut your robot off when first testing.**
+
+---
+
 ![alt text](https://i.imgur.com/3mfyORN.png "Page Example")
 
 ---

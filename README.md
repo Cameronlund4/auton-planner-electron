@@ -5,6 +5,9 @@
   Developed by team 2616E.
 </p>
 
+[![Build Status](https://travis-ci.org/Cameronlund4/auton-planner-electron.svg?branch=master)](https://travis-ci.org/Cameronlund4/auton-planner-electron)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/Cameronlund4/auton-planner-electron.svg?style=flat-square&maxAge=600)](https://codeclimate.com/github/Cameronlund4/auton-planner-electron)
+
 ---
 
 **This project is a WIP. Please excuse any lacking features and report any issues you find. Also, use this code at your own risk. Do not trust the generated auton to be perfect; always be ready to shut your robot off when first testing.**

@@ -4,15 +4,24 @@ import TurnAutonGUI from './TurnAutonGui.jsx'
 
 // TODO Implement
 export default class TurnAutonAction extends AutonAction {
-  constructor(selectedCallback, redrawCallback) {
-    super(selectedCallback, redrawCallback);
+  constructor(selectedCallback, redrawCallback, instanceData) {
+    super(selectedCallback, redrawCallback, instanceData);
     // Overwrite the type data for this action
-    this.typeData = {
-      display: "Turn",
-      type: "TurnAutonAction",
-      icon: "./main/assets/icon_turn.png",
-      data: {degrees: 0},
-      actionGUI: TurnAutonGUI
+
+    if (!instanceData) { // If no instance data was passed
+      // Overwrite the type data for this action
+      this.typeData = {
+        display: "Turn",
+        type: "TurnAutonAction",
+        icon: "./main/assets/icon_turn.png",
+        data: {degrees: 0},
+        actionGUI: TurnAutonGUI
+      }
+    } else { // Instance data was passed
+      // Write in our instanceData
+      this.typeData= instanceData;
+      // Assign in anything not saved in instanceData
+      Object.assign(this.typeData, {actionGUI: TurnAutonGUI});
     }
   }
 

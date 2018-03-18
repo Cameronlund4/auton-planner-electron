@@ -161,7 +161,6 @@ export default class App extends React.Component {
   }
 
   onActionTypeChange(newType) {
-    console.log(event.target.value);
     // Grab our current action wrappers
     let actionWrappers = this.state.actionWrappers;
     // Create a new action with the new type
@@ -176,6 +175,8 @@ export default class App extends React.Component {
     this.setState(Object.assign(this.state, {actionWrappers: actionWrappers}));
   }
 
+  // NOTE possible BUG: THis may be getting called way more than it should be
+  // (It seems to be getting called 15 times a render)
   generateCode() {
     var code = "";
     // TODO Set the robot's starting positions
@@ -185,7 +186,6 @@ export default class App extends React.Component {
     for (let i = 0; i < this.state.actionWrappers.length; i++) {
       code += this.state.actionWrappers[i].renderCode(robot) + "\n";
     }
-    console.log("Code: "+code);
     return code;
   }
 

@@ -19,20 +19,22 @@
 ---
 ## Features
 
-✔️ Implemented Feature ❌ Future Feature ⏳ Priority 💤 Long term
 * ✔️ Create auton in sets of easy to understand actions
 * ✔️ Easily customizable for personal codebase
 * ✔️ Easily updatable for new games
 * ✔️ Default actions draw hitboxes to show where the robot will hit
 * ✔️ Cross-Platform, working on any system
 * ✔️ Automatically scales to any size window
-* ✔️ Supports and easily switches between units of measurements
+* ✔️ Supports and easily switches between many units of measurements
 * ❌⏳ Save autons to a file and load at a later date
 * ❌⏳ Change robot starting position and angle (Can be done [here](https://github.com/Cameronlund4/auton-planner-electron/blob/master/src/main/react/field.jsx#L84); percent of field (x,y), angle w/ 0 up)
 * ❌ Click to move to point
 * ❌ Interactable game objects
+* ❌ Support customizable robot sizes
 * ❌ Full usability with only keyboard
+* ❌💤 Autosaving to make sure autons are not lost
 * ❌💤 Live debugging of autons
+* ❌💤 Support non-square fields for other programs like FIRST
 
 ---
 ## Setup

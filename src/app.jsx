@@ -1,6 +1,5 @@
 import React from 'react';
 import Field from './main/react/field.jsx'
-import ActionCard from './main/react/actioncard.jsx'
 import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
 import ActionProvider from './impl/current/ActionProvider.jsx'
@@ -80,7 +79,7 @@ export default class App extends React.Component {
     // Fill the wrapper with the first user defined action
     //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
     //actionWrapper.setAutonAction(<ActionComponent/>);
-    let action = new this.actionTypes[type](this.setSelected, this.updateCanvas);
+    let action = new this.actionTypes[type](this.setSelected, this.updateCanvas, instanceData);
     action.meta.name = "Unnamed Action "+index;
     return action;
   }
@@ -195,26 +194,36 @@ export default class App extends React.Component {
     for (let i = 0; i < wrappers.length; i++) {
       data[i] = wrappers[i].renderSaveData();
     }
-    // console.log("Save data:");
-    // console.log(data);
-    // console.log(JSON.stringify(data, null, "    "));
+    console.log("Save data:");
+    console.log(data);
+    console.log(JSON.stringify(data, null, "    "));
     return data;
   }
 
   loadSaveData(data) {
-    console.log("Data: ");
-    console.log(data);
     for (let i = 0; i < Object.keys(data).length; i++ ) {
-      console.log("It: "+i);
+      // Grab the specific actions data
       let datum = data[Object.keys(data)[i]];
+      // Create a new action using the data as instance data
       let action = this.createActionWrapper(i, datum.typeData.display, datum.typeData);
+      // Update the new actions meta
       action.updateMeta(datum.meta);
+      // Add the action wrapper into the system
       this.addActionWrapper(action, i);
+      // If this was selected when saved, reselect it now
+      if (datum.meta.selected) {
+        this.setSelected(i);
+      }
     }
   }
 
   // Render the HTML for the component
   render() {
+    this.generateSaveObj();
+    if (this.state.actionWrappers.length == 0) {
+      this.loadSaveData(JSON.parse('{ \"0\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } }, \"meta\": { \"name\": \"Unnamed Action 1\", \"selected\": false, \"index\": 0, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } } }, \"1\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } }, \"meta\": { \"name\": \"Unnamed Action 2\", \"selected\": false, \"index\": 1, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } } }, \"2\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 3\", \"selected\": false, \"index\": 2, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } }, \"3\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } }, \"meta\": { \"name\": \"Unnamed Action 4\", \"selected\": false, \"index\": 3, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } } }, \"4\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 5\", \"selected\": true, \"index\": 4, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } } }'));
+    }
+
     // Each AutonAction stores jsx to display. Grab it from the selected...
     // action if there is one so we can display it. Otherwise, inejct empty
     let actionGUI = (<div></div>);
@@ -247,10 +256,6 @@ export default class App extends React.Component {
     }
 
     let code = this.generateCode();
-
-    if (this.state.actionWrappers.length == 0) {
-      this.loadSaveData(JSON.parse('{ "0": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "1": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "2": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "3": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "4": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } } }'));
-    }
 
     return (
       <div style={{height: "100%", minHeight: "100%"}}>

@@ -1,5 +1,4 @@
 import React from 'react';
-import styles from './actioncard.css.js';
 
 // Component that displays information about a certain AutonAction
 export default class DistanceInput extends React.Component {

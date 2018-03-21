@@ -77,7 +77,7 @@ export default class AutonAction {
   renderSaveData() {
     return {
       typeData: this.renderStorableTypedata(),
-      meta: this.renderStorableTypedata()
+      meta: this.renderStorableMeta()
     }
   }
 

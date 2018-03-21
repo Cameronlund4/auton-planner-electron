@@ -19,21 +19,10 @@ export default class DistanceInput extends React.Component {
     // Bind necessary methods
     this.handleDistanceChange = this.handleDistanceChange.bind(this);
     this.handleUnitChange = this.handleUnitChange.bind(this);
+    this.determineStep = this.determineStep.bind(this);
   }
 
-  // Render the HTML for the component
-  render() {
-    let rows = [];
-    for (let i = 0; i < this.state.units.length; i++) {
-      // Generate and push the input unit items to the input
-      rows.push(
-        <option value={i} key={i}>
-          {this.state.units[i]}
-        </option>
-      );
-    }
-
-    // Figure out the step to be used
+  determineStep() {
     var step = "";
     if ((this.props.distance + "").split(".")[1]) { // If we have decimals
       // Figure out how many decimals we need
@@ -54,7 +43,24 @@ export default class DistanceInput extends React.Component {
       }
       step += "1";
     }
+    return step;
+  }
 
+  // Render the HTML for the component
+  render() {
+    let rows = [];
+    for (let i = 0; i < this.state.units.length; i++) {
+      // Generate and push the input unit items to the input
+      rows.push(
+        <option value={i} key={i}>
+          {this.state.units[i]}
+        </option>
+      );
+    }
+
+    // Figure out the step to be used
+    var step = this.determineStep();
+    
     return (<div>
       Distance: <br/>
       <input type="number" step={step}

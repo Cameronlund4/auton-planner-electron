@@ -18,38 +18,19 @@ export default class DriveAutonAction extends AutonAction {
     }
   }
 
-  // Draw on the field
-  renderWithGraphics(robot, ctx, selected) {
-    ctx.beginPath();
-    ctx.strokeStyle="black";
-    ctx.fillStyle = "black";
-    ctx.lineWidth = 2;
-
+  renderSelected(robot, ctx, selected, xOrig, yOrig, xFinal, yFinal) {
     // 1st offset set. Considering robot front up, this translates points left/right half the robot length.
-    var xOff1 = (9/144)*robot.fieldSize*Math.cos(robot.toRadians(robot.pos.rotation));
-    var yOff1 = (9/144)*robot.fieldSize*Math.sin(robot.toRadians(robot.pos.rotation));
+    let angleRadOff1 = robot.toRadians(robot.pos.rotation);
+    let distOff = (9/144)*robot.fieldSize;
+    var xOff1 = distOff*Math.cos(angleRadOff1);
+    var yOff1 = distOff*Math.sin(angleRadOff1);
     // 2nd offset set. Considering robot front up, this translates points up/down half the robot length.
     // These will adjust based on the direction of the drive.
-    var xOff2 = (9/144)*robot.fieldSize*Math.cos(robot.toRadians(robot.pos.rotation+90));
+    let angleRadOff2 = robot.toRadians(robot.pos.rotation+90);
+    var xOff2 = distOff*Math.cos(angleRadOff2);
     xOff2 *= (this.typeData.data.percent > 0 ? 1 : -1);
-    var yOff2 = (9/144)*robot.fieldSize*Math.sin(robot.toRadians(robot.pos.rotation+90));
+    var yOff2 = distOff*Math.sin(angleRadOff2);
     yOff2 *= (this.typeData.data.percent > 0 ? 1 : -1);
-
-    // Main robot path
-    ctx.beginPath();
-    // Grab where the robot started and start line there
-    var xOrig = robot.getPixelsX();
-    var yOrig = robot.getPixelsY();
-    ctx.moveTo(xOrig, yOrig);
-    // Move the robot desired distance
-    robot.moveDistance(this.typeData.data.percent);
-    // Grab where the robot ends up and end the line there
-    var xFinal = robot.getPixelsX();
-    var yFinal = robot.getPixelsY();
-    ctx.lineTo(xFinal, yFinal);
-    // Draw line and close path
-    ctx.stroke();
-    ctx.closePath();
 
     // If selected, mark what drive will hit. Otherwise, mark endpoint of drive.
     if (selected) {
@@ -70,6 +51,32 @@ export default class DriveAutonAction extends AutonAction {
       ctx.fill();
       ctx.closePath();
     }
+  }
+
+  // Draw on the field
+  renderWithGraphics(robot, ctx, selected) {
+    ctx.beginPath();
+    ctx.strokeStyle="black";
+    ctx.fillStyle = "black";
+    ctx.lineWidth = 2;
+
+    // Main robot path
+    ctx.beginPath();
+    // Grab where the robot started and start line there
+    var xOrig = robot.getPixelsX();
+    var yOrig = robot.getPixelsY();
+    ctx.moveTo(xOrig, yOrig);
+    // Move the robot desired distance
+    robot.moveDistance(this.typeData.data.percent);
+    // Grab where the robot ends up and end the line there
+    var xFinal = robot.getPixelsX();
+    var yFinal = robot.getPixelsY();
+    ctx.lineTo(xFinal, yFinal);
+    // Draw line and close path
+    ctx.stroke();
+    ctx.closePath();
+
+    this.renderSelected(robot, ctx, selected, xOrig, yOrig, xFinal, yFinal);
   }
 
   renderCode(robot) {

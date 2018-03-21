@@ -56,8 +56,9 @@ export default class Robot {
   // and the current rotation of the robot
   moveDistance(percent) {
     // `- (Math.PI / 2)` is to make 0 degrees be directly up on the field
-    this.pos.x += Math.cos(this.toRadians(this.pos.rotation) - (Math.PI / 2)) * percent;
-    this.pos.y += Math.sin(this.toRadians(this.pos.rotation) - (Math.PI / 2)) * percent;
+    let angle = this.toRadians(this.pos.rotation) - (Math.PI / 2);
+    this.pos.x += Math.cos(angle) * percent;
+    this.pos.y += Math.sin(angle) * percent;
   }
 
   /*

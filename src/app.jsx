@@ -194,9 +194,9 @@ export default class App extends React.Component {
     for (let i = 0; i < wrappers.length; i++) {
       data[i] = wrappers[i].renderSaveData();
     }
-    console.log("Save data:");
-    console.log(data);
-    console.log(JSON.stringify(data, null, "    "));
+    // console.log("Save data:");
+    // console.log(data);
+    // console.log(JSON.stringify(data, null, "    "));
     return data;
   }
 

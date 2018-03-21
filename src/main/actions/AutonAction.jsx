@@ -57,20 +57,22 @@ export default class AutonAction {
     ctx.stroke();
   }
 
+  renderStorable(input) {
+    let data = {};
+    Object.assign(data, input);
+    delete data.actionGUI;
+    delete data.selectedCallback;
+    return data;
+  }
+
   // Creates a storable instance of the this.typeData used for saving
   renderStorableTypedata() {
-    let data = {};
-    Object.assign(data, this.typeData);
-    delete data.actionGUI;
-    return data;
+    return this.renderStorable(this.typeData);
   }
 
   // Creates a storable instance of the this.meta used for saving
   renderStorableMeta() {
-    let data = {};
-    Object.assign(data, this.meta);
-    delete data.selectedCallback;
-    return data;
+    return this.renderStorable(this.meta);
   }
 
   // Creates a storable instance of the action used for saving

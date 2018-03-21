@@ -28,10 +28,10 @@ export default class App extends React.Component {
 
     // Create the empty/test list of actions
     let actionWrappers = [];
-    let i = 0;
-    for (; i < 1; i++) {
-      actionWrappers.push(this.createActionWrapper(i+1, Object.keys(this.actionTypes)[0]));
-    }
+    // let i = 0;
+    // for (; i < 1; i++) {
+    //   actionWrappers.push(this.createActionWrapper(i+1, Object.keys(this.actionTypes)[0]));
+    // }
 
     // Save any states we need
     this.state = {
@@ -74,7 +74,7 @@ export default class App extends React.Component {
   }
 
   // Create a new blank auton action wrapper and return it
-  createActionWrapper(index, type) {
+  createActionWrapper(index, type, instanceData) {
     // Create a blank wrapper
     //let actionWrapper = new AutonAction(this.setSelected, this.updateCanvas);
     // Fill the wrapper with the first user defined action
@@ -189,6 +189,30 @@ export default class App extends React.Component {
     return code;
   }
 
+  generateSaveObj() {
+    let wrappers = this.state.actionWrappers;
+    let data = {};
+    for (let i = 0; i < wrappers.length; i++) {
+      data[i] = wrappers[i].renderSaveData();
+    }
+    // console.log("Save data:");
+    // console.log(data);
+    // console.log(JSON.stringify(data, null, "    "));
+    return data;
+  }
+
+  loadSaveData(data) {
+    console.log("Data: ");
+    console.log(data);
+    for (let i = 0; i < Object.keys(data).length; i++ ) {
+      console.log("It: "+i);
+      let datum = data[Object.keys(data)[i]];
+      let action = this.createActionWrapper(i, datum.typeData.display, datum.typeData);
+      action.updateMeta(datum.meta);
+      this.addActionWrapper(action, i);
+    }
+  }
+
   // Render the HTML for the component
   render() {
     // Each AutonAction stores jsx to display. Grab it from the selected...
@@ -199,6 +223,9 @@ export default class App extends React.Component {
       var ActionGUI = wrapper.typeData.actionGUI;
       actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
     }
+
+    // TODO Remove
+    this.generateSaveObj();
 
     let actionSelect = (<div></div>);
     if (this.state.selected != -1) {
@@ -220,6 +247,10 @@ export default class App extends React.Component {
     }
 
     let code = this.generateCode();
+
+    if (this.state.actionWrappers.length == 0) {
+      this.loadSaveData(JSON.parse('{ "0": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "1": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "2": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "3": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } }, "4": { "typeData": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } }, "meta": { "display": "Drive", "type": "DriveAutonAction", "icon": "./main/assets/icon_drive.png", "data": { "percent": 0, "distance": 0, "unit": 2 } } } }'));
+    }
 
     return (
       <div style={{height: "100%", minHeight: "100%"}}>

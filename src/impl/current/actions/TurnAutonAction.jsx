@@ -19,7 +19,7 @@ export default class TurnAutonAction extends AutonAction {
       }
     } else { // Instance data was passed
       // Write in our instanceData
-      this.typeData= instanceData;
+      this.typeData = instanceData;
       // Assign in anything not saved in instanceData
       Object.assign(this.typeData, {actionGUI: TurnAutonGUI});
     }

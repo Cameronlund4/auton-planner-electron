@@ -5,20 +5,16 @@ import DriveAutonGUI from './DriveAutonGui.jsx'
 export default class DriveAutonAction extends AutonAction {
   constructor(selectedCallback, redrawCallback, instanceData) {
     super(selectedCallback, redrawCallback, instanceData);
-    if (!instanceData) { // If no instance data was passed
-      // Overwrite the type data for this action
-      this.typeData = {
-        display: "Drive",
-        type: "DriveAutonAction",
-        icon: "./main/assets/icon_drive.png",
-        data: {percent: 0.0, distance: 0.0, unit: 2},
-        actionGUI: DriveAutonGUI
-      }
-    } else { // Instance data was passed
+    this.typeData = {
+      display: "Drive",
+      type: "DriveAutonAction",
+      icon: "./main/assets/icon_drive.png",
+      data: {percent: 0.0, distance: 0.0, unit: 2},
+      actionGUI: DriveAutonGUI
+    }
+    if (instanceData) { // Instance data was passed, fill it in
       // Write in our instanceData
-      this.typeData= instanceData;
-      // Assign in anything not saved in instanceData
-      Object.assign(this.typeData, {actionGUI: DriveAutonGUI});
+      Object.assign(this.typeData, instanceData);
     }
   }
 

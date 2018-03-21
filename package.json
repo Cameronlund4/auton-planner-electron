@@ -46,7 +46,7 @@
   "dependencies": {
     "electron-compile": "^6.4.1",
     "electron-devtools-installer": "^2.2.0",
-    "electron-forge": "^5.1.0",
+    "electron-forge": "^5.1.1",
     "npm": "^5.7.1",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",

@@ -2,7 +2,8 @@
 <p align="center">
   <b>Cherry Hill East Auton Planner<br/></b>
   Auton planner based on Electron with the goal of making assembling autons quicker and more intuitive.<br/>
-  Developed by team 2616E.
+  Developed by team 2616E.<br/>
+  <a href="https://www.vexforum.com/index.php/33583-jason-s-turning-point-field-renders/0">Field renders by Jason</a>
 </p>
 
 [![Build Status](https://travis-ci.org/Cameronlund4/auton-planner-electron.svg?branch=master)](https://travis-ci.org/Cameronlund4/auton-planner-electron)

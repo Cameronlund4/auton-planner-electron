@@ -79,7 +79,8 @@ export default class App extends React.Component {
     // Fill the wrapper with the first user defined action
     //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
     //actionWrapper.setAutonAction(<ActionComponent/>);
-    let action = new this.actionTypes[type](this.setSelected, this.updateCanvas, instanceData);
+    var ActionWrapperTyped = this.actionTypes[type];
+    let action = new ActionWrapperTyped(this.setSelected, this.updateCanvas, instanceData);
     action.meta.name = "Unnamed Action "+index;
     return action;
   }
@@ -159,7 +160,7 @@ export default class App extends React.Component {
     window.removeEventListener('resize', this.updateWindow);
   }
 
-  onActionTypeChange(newType) {
+  onActionTypeChange(event) {
     // Grab our current action wrappers
     let actionWrappers = this.state.actionWrappers;
     // Create a new action with the new type
@@ -224,16 +225,16 @@ export default class App extends React.Component {
       this.loadSaveData(JSON.parse('{ \"0\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } }, \"meta\": { \"name\": \"Unnamed Action 1\", \"selected\": false, \"index\": 0, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } } }, \"1\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } }, \"meta\": { \"name\": \"Unnamed Action 2\", \"selected\": false, \"index\": 1, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } } }, \"2\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 3\", \"selected\": false, \"index\": 2, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } }, \"3\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } }, \"meta\": { \"name\": \"Unnamed Action 4\", \"selected\": false, \"index\": 3, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } } }, \"4\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 5\", \"selected\": true, \"index\": 4, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } } }'));
     }
 
-    // Each AutonAction stores jsx to display. Grab it from the selected...
+    // Each AutonAction stores jsx to display. Grab it from the selected
     // action if there is one so we can display it. Otherwise, inejct empty
-    let actionGUI = (<div></div>);
+    let actionGUI = (<div>No action selected :'(</div>); // TODO make perty
     if (this.state.selected != -1) {
       var wrapper = this.state.actionWrappers[this.state.selected];
       var ActionGUI = wrapper.typeData.actionGUI;
       actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
     }
 
-    // TODO Remove
+    // TODO Remove; for testing
     this.generateSaveObj();
 
     let actionSelect = (<div></div>);
@@ -270,7 +271,7 @@ export default class App extends React.Component {
 
         <div style={styles.panel}>
           <div style={styles.panel_upper} id={this.state.selected}>
-            <textarea style={{resize: "none", height: "300px", width: "554"}} value={this.generateCode()}/>
+            <textarea style={{resize: "none", height: "100%", width: "100%", borderStyle: "none"}} value={this.generateCode()}/>
           </div>
 
           <div style={styles.panel_lower}>

@@ -17,7 +17,6 @@ export default { // TODO Correct comments in this file
     cssFloat: 'right',
     height: "100%",
     minHeight: "100%",
-    display: "grid",
     display: "flex",
     flexDirection: 'column'
   },

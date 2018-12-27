@@ -8,10 +8,14 @@ export default class TurnActionGUI extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  highlightOnFocus(event) {
+    event.target.select();
+  }
+
   render() {
     return (<div>
       Degrees: <br/>
-      <input type="number"
+      <input type="number" onFocus={this.highlightOnFocus}
         onChange={this.handleChange} value={this.state.degrees}/>
     </div>);
   }

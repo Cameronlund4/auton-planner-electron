@@ -46,6 +46,10 @@ export default class DistanceInput extends React.Component {
     return step;
   }
 
+  highlightOnFocus(event) {
+    event.target.select();
+  }
+
   // Render the HTML for the component
   render() {
     let rows = [];
@@ -62,7 +66,7 @@ export default class DistanceInput extends React.Component {
     var step = this.determineStep();
 
     return (<div>
-      <input type="number" step={step}
+      <input onFocus={this.highlightOnFocus} type="number" step={step}
         onChange={this.handleDistanceChange} value={this.props.distance}/>
       <select value={this.state.unit} onChange={this.handleUnitChange}>
         {rows}

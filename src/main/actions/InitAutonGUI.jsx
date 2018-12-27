@@ -11,10 +11,14 @@ export default class InitActionGUI extends React.Component {
     this.handleY = this.handleY.bind(this);
   }
 
+  highlightOnFocus(event) {
+    event.target.select();
+  }
+
   render() {
     return (<div>
       Rotation: <br/>
-      <input type="number"
+      <input type="number" onFocus={this.highlightOnFocus}
         onChange={this.handleRotation} value={this.state.degrees}/>
       <br/>
       X pos: <br/>

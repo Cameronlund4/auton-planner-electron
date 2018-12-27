@@ -14,7 +14,11 @@ export default class InitAutonAction extends AutonAction {
         display: "Initialize",
         type: "InitAutonAction",
         icon: "./main/assets/icon_init.png",
-        data: {degrees: 0},
+        data: {
+          degrees: 0,
+          pX: {percent: 0.0, distance: 0.0, unit: 2},
+          pY: {percent: 0.0, distance: 0.0, unit: 2}
+        },
         actionGUI: InitAutonGUI
       }
     } else { // Instance data was passed
@@ -27,7 +31,8 @@ export default class InitAutonAction extends AutonAction {
 
   // Draw on the field
   renderWithGraphics(robot, ctx, selected) {
-    // TODO Configure robot position and rotation
+    robot.setPos(this.typeData.data.pX.percent, this.typeData.data.pY.percent,
+      this.typeData.data.degrees);
     robot.show(); // Make the robot show up
   }
 

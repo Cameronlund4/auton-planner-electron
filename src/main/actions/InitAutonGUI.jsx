@@ -1,18 +1,26 @@
 import React from 'react';
+import DistanceInput from './../react/distanceinput.jsx'
 
 // TODO Implement
 export default class InitActionGUI extends React.Component {
   constructor(props) {
     super(props);
     this.state = this.props.data;
-    this.handleChange = this.handleChange.bind(this);
+    this.handleRotation = this.handleRotation.bind(this);
+    this.handleX = this.handleX.bind(this);
+    this.handleY = this.handleY.bind(this);
   }
 
   render() {
     return (<div>
-      Degrees: <br/>
+      Rotation: <br/>
       <input type="number"
-        onChange={this.handleChange} value={this.state.degrees}/>
+        onChange={this.handleRotation} value={this.state.degrees}/>
+      <br/>
+      X pos: <br/>
+      <DistanceInput onChange={this.handleX} distance={this.state.pX.distance} unit={this.state.pX.unit}/>
+      Y pos: <br/>
+      <DistanceInput onChange={this.handleY} distance={this.state.pY.distance} unit={this.state.pY.unit}/>
     </div>);
   }
 
@@ -20,10 +28,21 @@ export default class InitActionGUI extends React.Component {
     this.setState(nextProps.data);
   }
 
-  handleChange(event) {
+  handleRotation(event) {
     var newState = Object.assign(this.state, {degrees: event.target.value});
     this.props.updateCallback(newState);
     this.setState(newState);
   }
 
+  handleX(event) {
+    var newState = Object.assign(this.state, Object.assign(this.state.pX, event));
+    this.props.updateCallback(newState);
+    this.setState(newState);
+  }
+
+  handleY(event) {
+    var newState = Object.assign(this.state, Object.assign(this.state.pY, event));
+    this.props.updateCallback(newState);
+    this.setState(newState);
+  }
 }

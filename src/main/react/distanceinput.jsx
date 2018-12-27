@@ -60,9 +60,8 @@ export default class DistanceInput extends React.Component {
 
     // Figure out the step to be used
     var step = this.determineStep();
-    
+
     return (<div>
-      Distance: <br/>
       <input type="number" step={step}
         onChange={this.handleDistanceChange} value={this.props.distance}/>
       <select value={this.state.unit} onChange={this.handleUnitChange}>

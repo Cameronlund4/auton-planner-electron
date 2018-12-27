@@ -15,7 +15,20 @@ export default class Robot {
       x: posx,
       y: posy,
       rotation: rotation
-    }
+    };
+    this.hidden = true;
+  }
+
+  hide() {
+    this.hidden = true;
+  }
+
+  show() {
+    this.hidden = false;
+  }
+
+  setVisible(show) {
+    this.hidden = !show;
   }
 
   // Converts an angle to radians
@@ -76,6 +89,8 @@ export default class Robot {
   }
 
   renderWithGraphics(ctx) {
+    if (this.hidden)
+      return;
     ctx.beginPath();
     var size = (18/144)*this.fieldSize;
     ctx.strokeStyle="black";

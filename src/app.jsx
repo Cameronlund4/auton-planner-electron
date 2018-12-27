@@ -5,6 +5,7 @@ import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
 import ActionProvider from './impl/current/ActionProvider.jsx'
 import Robot from './main/Robot.jsx'
+import InitAutonAction from './main/actions/InitAutonAction.jsx'
 
 // Root component for the whole project. Root of all gui generation
 // TODO {Project}: Prevent highlighting of clickable areas
@@ -30,10 +31,10 @@ export default class App extends React.Component {
 
     // Create the empty/test list of actions
     let actionWrappers = [];
-    // let i = 0;
-    // for (; i < 1; i++) {
-    //   actionWrappers.push(this.createActionWrapper(i+1, Object.keys(this.actionTypes)[0]));
-    // }
+    // Add an initialize auton action to the beginning
+    var initAction = this.createActionWrapper(0, "Initialize");
+    initAction.meta.name = "Setup Robot";
+    actionWrappers.push(initAction);
 
     // Save any states we need
     this.state = {
@@ -77,12 +78,12 @@ export default class App extends React.Component {
 
   // Create a new blank auton action wrapper and return it
   createActionWrapper(index, type, instanceData) {
-    // Create a blank wrapper
-    //let actionWrapper = new AutonAction(this.setSelected, this.updateCanvas);
-    // Fill the wrapper with the first user defined action
-    //var ActionComponent = this.actionTypes[Object.keys(this.actionTypes)[0]];
-    //actionWrapper.setAutonAction(<ActionComponent/>);
-    var ActionWrapperTyped = this.actionTypes[type];
+    var ActionWrapperTyped;
+    if (type === "Initialize") {
+      ActionWrapperTyped = InitAutonAction;
+    } else {
+      ActionWrapperTyped = this.actionTypes[type];
+    }
     let action = new ActionWrapperTyped(this.setSelected, this.updateCanvas, instanceData);
     action.meta.name = "Unnamed Action "+index;
     return action;
@@ -123,12 +124,15 @@ export default class App extends React.Component {
       // Unselect previously selected action
       this.state.actionWrappers[this.state.selected].meta.selected = false;
       // Add new action to the index that the selected was at
-      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]), this.state.selected)
+      var addIndex = this.state.selected;
+      // We don't want to add before initialize action. If we're trying to, add
+      //  after the initialize spot
+      addIndex = addIndex == 0 ? 1 : addIndex;
+      this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]), addIndex);
       // Trick setSelected to think it's getting a new index when just...
-      // feeding it back the same index
-      let temp = this.state.selected;
+      // feeding it back the same index (unless index was 0)
       this.state.selected = -1;
-      this.setSelected(temp);
+      this.setSelected(addIndex);
     } else { // If we don't have a selected index
       // Create an action at the beginning of the list
       this.addActionWrapper(this.createActionWrapper(this.state.actionWrappers.length+1, Object.keys(this.actionTypes)[0]), 0);
@@ -236,24 +240,11 @@ export default class App extends React.Component {
 
   // Render the HTML for the component
   render() {
-    this.generateSaveObj();
-    // if (this.state.actionWrappers.length == 0) {
-    //   this.loadSaveData(JSON.parse('{ \"0\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } }, \"meta\": { \"name\": \"Unnamed Action 1\", \"selected\": false, \"index\": 0, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } } }, \"1\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } }, \"meta\": { \"name\": \"Unnamed Action 2\", \"selected\": false, \"index\": 1, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } } }, \"2\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 3\", \"selected\": false, \"index\": 2, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } }, \"3\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } }, \"meta\": { \"name\": \"Unnamed Action 4\", \"selected\": false, \"index\": 3, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } } }, \"4\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 5\", \"selected\": true, \"index\": 4, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } } }'));
-    // }
+    this.generateSaveObj(); // TODO Cache somewhere
 
-    // Each AutonAction stores jsx to display. Grab it from the selected
-    // action if there is one so we can display it. Otherwise, inejct empty
-    let actionGUI = (<div>No action selected :'(</div>);
-    if (this.state.selected != -1) {
-      var wrapper = this.state.actionWrappers[this.state.selected];
-      var ActionGUI = wrapper.typeData.actionGUI;
-      actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
-    }
-
-    // TODO Remove; for testing
-    this.generateSaveObj();
-
+    let actionSettings = (<div></div>);
     let actionSelect = (<div></div>);
+
     if (this.state.selected != -1) {
       let rows = [];
       for (let i = 0; i < Object.keys(this.actionTypes).length; i++) {
@@ -265,7 +256,22 @@ export default class App extends React.Component {
         );
       }
 
-      actionSelect = (<div style={styles.action_area_top}>
+      // Selected action information. Rendered only if theres a selected action
+      // and if the action selected should be able to change it's type
+      if (!(this.state.actionWrappers[this.state.selected].typeData.display === "Initialize")) {
+        actionSelect = (<div>
+          Action type: <select
+              style={{
+                borderStyle: "none",
+                outlineWidth: "0px"}}
+              value={Object.keys(this.actionTypes).indexOf(this.state.actionWrappers[this.state.selected].typeData.display)}
+              onChange={this.onActionTypeChange}>
+            {rows}
+          </select>
+        </div>);
+      }
+
+      actionSettings = (<div style={styles.action_area_top}>
         <textarea
             onFocus={this.highlightOnFocus}
             style={{
@@ -282,15 +288,17 @@ export default class App extends React.Component {
               height: '20px'}}
             value={this.state.actionWrappers[this.state.selected].meta.name}
             onChange={this.onActionNameChange}/>
-        Action type: <select
-            style={{
-              borderStyle: "none",
-              outlineWidth: "0px"}}
-            value={Object.keys(this.actionTypes).indexOf(this.state.actionWrappers[this.state.selected].typeData.display)}
-            onChange={this.onActionTypeChange}>
-          {rows}
-        </select>
+          {actionSelect}
       </div>);
+    }
+
+    // Each AutonAction stores jsx to display. Grab it from the selected
+    // action if there is one so we can display it. Otherwise, inejct empty
+    let actionGUI = (<div>No action selected :'(</div>);
+    if (this.state.selected != -1) {
+      var wrapper = this.state.actionWrappers[this.state.selected];
+      var ActionGUI = wrapper.typeData.actionGUI;
+      actionGUI = <ActionGUI data={wrapper.typeData.data} updateCallback={wrapper.updateCallback}/>
     }
 
     let code = this.generateCode();
@@ -360,7 +368,7 @@ export default class App extends React.Component {
             </div>
 
             <div style={styles.panel_lower_right}>
-              {actionSelect}
+              {actionSettings}
               <div style={styles.action_area_bottom}>{actionGUI}</div>
             </div>
           </div>

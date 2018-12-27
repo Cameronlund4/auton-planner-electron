@@ -276,7 +276,7 @@ export default class App extends React.Component {
 
           <div style={styles.panel_lower}>
             <div style={styles.panel_lower_left}>
-              <ActionList actionWrappers={this.state.actionWrappers}/>
+              <ActionList actionWrappers={this.state.actionWrappers} style={{flexGrow: '1'}}/>
               <div
                 style={{
                   borderStyle: "solid",
@@ -308,6 +308,9 @@ export default class App extends React.Component {
                 >
                   Add before
                 </button>
+              </div>
+              <div style={{height: '200px'}}>
+
               </div>
             </div>
 

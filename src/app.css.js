@@ -17,7 +17,9 @@ export default { // TODO Correct comments in this file
     cssFloat: 'right',
     height: "100%",
     minHeight: "100%",
-    display: "grid"
+    display: "grid",
+    display: "flex",
+    flexDirection: 'column'
   },
 
   // Upper section of the panel, contains action jsx
@@ -56,7 +58,9 @@ export default { // TODO Correct comments in this file
     borderWidth: '1px',
     borderRightStyle: 'solid',
     borderColor: 'lightgray',
-    height: "100%"
+    height: "100%",
+    display: "flex",
+    flexDirection: 'column'
   },
 
   // lower right section of the panel, contains action settings

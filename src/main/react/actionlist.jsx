@@ -31,7 +31,7 @@ export default class ActionList extends React.Component {
         overflowY: 'auto',
         width: '250px',
         listStyleType: 'none',
-        height: 'calc(100% - 193px)' // TODO More elegant solution
+        height: '100%'
       }}>
         {rows}
       </ul>

@@ -18,7 +18,7 @@ export default class ActionList extends React.Component {
       withIndex = Object.assign(withIndex, this.props.actionWrappers[i].typeData);
       // Generate and push the ActionCard component to the list with meta
       rows.push(
-        <li key={i}><ActionCard {...withIndex}/></li>
+        <li key={i} style={{height: '50px', paddingTop: '0px'}}><ActionCard {...withIndex}/></li>
       );
     }
 
@@ -30,7 +30,8 @@ export default class ActionList extends React.Component {
         overflow: "hidden",
         overflowY: 'auto',
         width: '250px',
-        height: 'calc(100% - 393px)' // TODO More elegant solution
+        listStyleType: 'none',
+        height: 'calc(100% - 193px)' // TODO More elegant solution
       }}>
         {rows}
       </ul>

@@ -81,7 +81,8 @@ export default { // TODO Correct comments in this file
 
   action_area_bottom : {
     width: '100%',
-    padding: '5px'
+    padding: '5px',
+    marginBottom: '5px'
   },
 
   // Formatting for the action list

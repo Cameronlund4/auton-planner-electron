@@ -1,4 +1,5 @@
 import React from 'react';
+import { Menu } from 'electron';
 import Field from './main/react/field.jsx'
 import ActionList from './main/react/actionlist.jsx'
 import styles from './app.css.js';
@@ -23,7 +24,9 @@ export default class App extends React.Component {
     this.updateWindow = this.updateWindow.bind(this);
     this.updateCanvas = this.updateCanvas.bind(this);
     this.onActionTypeChange = this.onActionTypeChange.bind(this);
+    this.onActionNameChange = this.onActionNameChange.bind(this);
     this.generateCode = this.generateCode.bind(this);
+    this.highlightOnFocus = this.highlightOnFocus.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -175,6 +178,15 @@ export default class App extends React.Component {
     this.setState(Object.assign(this.state, {actionWrappers: actionWrappers}));
   }
 
+  onActionNameChange(event) {
+    let wrapper = this.state.actionWrappers[this.state.selected];
+    let actionWrappers = this.state.actionWrappers;
+    wrapper.meta.name = event.target.value;
+    actionWrappers[this.state.selected] = wrapper;
+    // Update actions back into state
+    this.setState(Object.assign(this.state, {actionWrappers: actionWrappers}));
+  }
+
   // NOTE possible BUG: THis may be getting called way more than it should be
   // (It seems to be getting called 15 times a render)
   generateCode() {
@@ -218,16 +230,20 @@ export default class App extends React.Component {
     }
   }
 
+  highlightOnFocus(event) {
+    event.target.select();
+  }
+
   // Render the HTML for the component
   render() {
     this.generateSaveObj();
-    if (this.state.actionWrappers.length == 0) {
-      this.loadSaveData(JSON.parse('{ \"0\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } }, \"meta\": { \"name\": \"Unnamed Action 1\", \"selected\": false, \"index\": 0, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } } }, \"1\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } }, \"meta\": { \"name\": \"Unnamed Action 2\", \"selected\": false, \"index\": 1, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } } }, \"2\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 3\", \"selected\": false, \"index\": 2, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } }, \"3\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } }, \"meta\": { \"name\": \"Unnamed Action 4\", \"selected\": false, \"index\": 3, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } } }, \"4\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 5\", \"selected\": true, \"index\": 4, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } } }'));
-    }
+    // if (this.state.actionWrappers.length == 0) {
+    //   this.loadSaveData(JSON.parse('{ \"0\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } }, \"meta\": { \"name\": \"Unnamed Action 1\", \"selected\": false, \"index\": 0, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"45\" } } }, \"1\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } }, \"meta\": { \"name\": \"Unnamed Action 2\", \"selected\": false, \"index\": 1, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.16666666666666666, \"distance\": \"1\", \"unit\": \"4\" } } }, \"2\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 3\", \"selected\": false, \"index\": 2, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } }, \"3\": { \"typeData\": { \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } }, \"meta\": { \"name\": \"Unnamed Action 4\", \"selected\": false, \"index\": 3, \"display\": \"Drive\", \"type\": \"DriveAutonAction\", \"icon\": \".\/main\/assets\/icon_drive.png\", \"data\": { \"percent\": 0.38276465441819774, \"distance\": \"140\", \"unit\": \"1\" } } }, \"4\": { \"typeData\": { \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } }, \"meta\": { \"name\": \"Unnamed Action 5\", \"selected\": true, \"index\": 4, \"display\": \"Turn\", \"type\": \"TurnAutonAction\", \"icon\": \".\/main\/assets\/icon_turn.png\", \"data\": { \"degrees\": \"-90\" } } } }'));
+    // }
 
     // Each AutonAction stores jsx to display. Grab it from the selected
     // action if there is one so we can display it. Otherwise, inejct empty
-    let actionGUI = (<div>No action selected :'(</div>); // TODO make perty
+    let actionGUI = (<div>No action selected :'(</div>);
     if (this.state.selected != -1) {
       var wrapper = this.state.actionWrappers[this.state.selected];
       var ActionGUI = wrapper.typeData.actionGUI;
@@ -250,7 +266,28 @@ export default class App extends React.Component {
       }
 
       actionSelect = (<div style={styles.action_area_top}>
-        Action: <select value={Object.keys(this.actionTypes).indexOf(this.state.actionWrappers[this.state.selected].typeData.display)} onChange={this.onActionTypeChange}>
+        <textarea
+            onFocus={this.highlightOnFocus}
+            style={{
+              resize: "none",
+              margin: '0px',
+              padding: '0px',
+              resize: "none",
+              width: "100%",
+              borderStyle: "none",
+              outlineWidth: '0px',
+              fontWeight: 'bold',
+              fontSize: '1.2em',
+              rows: '1',
+              height: '20px'}}
+            value={this.state.actionWrappers[this.state.selected].meta.name}
+            onChange={this.onActionNameChange}/>
+        Action type: <select
+            style={{
+              borderStyle: "none",
+              outlineWidth: "0px"}}
+            value={Object.keys(this.actionTypes).indexOf(this.state.actionWrappers[this.state.selected].typeData.display)}
+            onChange={this.onActionTypeChange}>
           {rows}
         </select>
       </div>);
@@ -271,7 +308,15 @@ export default class App extends React.Component {
 
         <div style={styles.panel}>
           <div style={styles.panel_upper} id={this.state.selected}>
-            <textarea style={{resize: "none", height: "100%", width: "100%", borderStyle: "none"}} value={this.generateCode()}/>
+            <textarea
+                onFocus={this.highlightOnFocus}
+                style={{
+                  resize: "none",
+                  height: "100%",
+                  width: "100%",
+                  borderStyle: "none",
+                  outlineWidth: '0px'}}
+                  value={this.generateCode()}/>
           </div>
 
           <div style={styles.panel_lower}>

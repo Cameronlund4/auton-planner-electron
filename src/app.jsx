@@ -6,6 +6,9 @@ import styles from './app.css.js';
 import ActionProvider from './impl/current/ActionProvider.jsx'
 import Robot from './main/Robot.jsx'
 import InitAutonAction from './main/actions/InitAutonAction.jsx'
+const electron = require('electron')
+const fs = require("fs");
+const {dialog} = require('electron').remote;
 
 // Root component for the whole project. Root of all gui generation
 // TODO {Project}: Prevent highlighting of clickable areas
@@ -28,6 +31,10 @@ export default class App extends React.Component {
     this.onActionNameChange = this.onActionNameChange.bind(this);
     this.generateCode = this.generateCode.bind(this);
     this.highlightOnFocus = this.highlightOnFocus.bind(this);
+    this.save = this.save.bind(this);
+    this.saveAs = this.saveAs.bind(this);
+    this.open = this.open.bind(this);
+    this.clear = this.clear.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -41,6 +48,20 @@ export default class App extends React.Component {
       actionWrappers: actionWrappers, // Save our actions to our state so we redraw on modify
       selected: -1 // Default selected to -1, aka no index selected
     };
+
+    // Events from the menu
+    electron.ipcRenderer.on('save', (event) => {
+      this.save()
+    });
+    electron.ipcRenderer.on('saveAs', (event) => {
+      this.saveAs()
+    });
+    electron.ipcRenderer.on('open', (event) => {
+      this.open()
+    });
+    electron.ipcRenderer.on('clear', (event) => {
+      this.clear(true)
+    });
   }
 
   /*****************************************************************************
@@ -54,15 +75,17 @@ export default class App extends React.Component {
       // It should no longer be selected as we're changing or toggling
       actionWrappers[this.state.selected].meta.selected = false;
     }
-    // We already have this object selected, it should no longer should be
-    if (selectedIndex == this.state.selected) {
-      // Set selection to `none`
-      this.setState(Object.assign(this.state, {selected: -1}));
-    } else
-    // We're selecting somethign new, set it to be selected
-    {
-      actionWrappers[selectedIndex].meta.selected = true;
-      this.setState(Object.assign(this.state, {selected: selectedIndex}));
+    if (selectedIndex != (-1)) {
+      // We already have this object selected, it should no longer should be
+      if (selectedIndex == this.state.selected) {
+        // Set selection to `none`
+        this.setState(Object.assign(this.state, {selected: -1}));
+      } else
+      // We're selecting somethign new, set it to be selected
+      {
+        actionWrappers[selectedIndex].meta.selected = true;
+        this.setState(Object.assign(this.state, {selected: selectedIndex}));
+      }
     }
   }
 
@@ -232,6 +255,64 @@ export default class App extends React.Component {
         this.setSelected(i);
       }
     }
+  }
+
+  clear(addInit) {
+    this.setSelected(-1);
+    let actionWrappers = [];
+    if (addInit) {
+      // Add an initialize auton action to the beginning
+      var initAction = this.createActionWrapper(0, "Initialize");
+      initAction.meta.name = "Setup Robot";
+      actionWrappers.push(initAction);
+    }
+    this.setState(Object.assign(this.state, {selected: -1, actionWrappers: actionWrappers}));
+  }
+
+  open() {
+    dialog.showOpenDialog((fileNames) => {
+      // fileNames is an array that contains all the selected
+      if(fileNames === undefined){
+          console.log("No file selected");
+          return;
+      }
+
+      let filepath = fileNames[0];
+      fs.readFile(filepath, 'utf-8', (err, data) => {
+        if(err){
+            alert("An error ocurred reading the file :" + err.message);
+            return;
+        }
+
+        this.clear();
+        this.saveLocation = filepath;
+        this.loadSaveData(JSON.parse(data));
+      });
+    });
+  }
+
+  saveAs() {
+    dialog.showSaveDialog({defaultPath:"unnamed.cheap"},(fileName) => {
+      if (fileName === undefined){
+          console.log("You didn't save the file");
+          return;
+      }
+
+      this.saveLocation = fileName;
+      this.save();
+    });
+  }
+
+  save() {
+    if (this.saveLocation === undefined) {
+      this.saveAs();
+      return;
+    }
+    fs.writeFile(this.saveLocation, JSON.stringify(this.generateSaveObj()), (err) => {
+      if(err) {
+          alert("An error ocurred saving the auton "+ err.message)
+      }
+    });
   }
 
   highlightOnFocus(event) {

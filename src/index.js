@@ -1,11 +1,31 @@
 import { app, BrowserWindow, Menu } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
-import { menuJson } from './menu.js'
+//import { menuJson } from './menu.js'
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow;
+
+var menuJson = [
+      {
+          label: 'File',
+          submenu: [
+              {label:'Open',
+              click: () => { mainWindow.webContents.send('open') }},
+              {type:'separator'},
+              {label: 'Save',
+              click: () => { mainWindow.webContents.send('save') }},
+              {label:'Save As',
+              click: () => { mainWindow.webContents.send('saveAs') }},
+              {type:'separator'},
+              {label:'Clear',
+              click: () => { mainWindow.webContents.send('clear') }},
+              {type:'separator'},
+              {role:'quit'}
+          ]
+      }
+  ]
 
 // Set up live updating if this is in dev mode
 const isDevMode = process.execPath.match(/[\\/]electron/);

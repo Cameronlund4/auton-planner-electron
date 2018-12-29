@@ -7,11 +7,9 @@ export var menuJson = [
               {label:'Save'},
               {label:'Save As'},
               {type:'separator'},
-              {label:'Exit',
-                click() {
-                    app.quit() 
-                }
-              }
+              {role:'quit'},
+              {label: 'test',
+              click: () => { mainWindow.webContents.send('createActionAtEnd') }}
           ]
       }
   ]

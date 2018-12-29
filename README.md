@@ -15,7 +15,7 @@
 
 ---
 
-![alt text](https://i.imgur.com/3mfyORN.png "Page Example")
+![alt text](https://i.imgur.com/Cd4wlD1.png "Page Example")
 
 ---
 ## Features
@@ -27,8 +27,8 @@
 * ✔️ Cross-Platform, working on any system
 * ✔️ Automatically scales to any size window
 * ✔️ Supports and easily switches between many units of measurements
-* ❌⏳ Save autons to a file and load at a later date
-* ❌⏳ Change robot starting position and angle (Can be done [here](https://github.com/Cameronlund4/auton-planner-electron/blob/master/src/main/react/field.jsx#L84); percent of field (x,y), angle w/ 0 up)
+* ✔️🎉 Save autons to a file and load at a later date
+* ✔️🎉 Change robot starting position and angle
 * ❌ Click to move to point
 * ❌ Interactable game objects
 * ❌ Support customizable robot sizes

@@ -35,6 +35,7 @@ export default class App extends React.Component {
     this.saveAs = this.saveAs.bind(this);
     this.open = this.open.bind(this);
     this.clear = this.clear.bind(this);
+    this.deleteSelected = this.deleteSelected.bind(this);
 
     // Create the empty/test list of actions
     let actionWrappers = [];
@@ -319,6 +320,14 @@ export default class App extends React.Component {
     event.target.select();
   }
 
+  deleteSelected() {
+    let selected = this.state.selected;
+    let actionWrappers = this.state.actionWrappers;
+    actionWrappers.splice(selected, 1);
+    // TODO Handle selection more elegantly than just deselecting
+    this.setState(Object.assign(this.state, {selected: -1, actionWrappers: actionWrappers}));
+  }
+
   // Render the HTML for the component
   render() {
     this.generateSaveObj(); // TODO Cache somewhere
@@ -341,6 +350,11 @@ export default class App extends React.Component {
       // and if the action selected should be able to change it's type
       if (!(this.state.actionWrappers[this.state.selected].typeData.display === "Initialize")) {
         actionSelect = (<div>
+          <img style={{
+          height: '100%',
+          padding: '3px',
+          paddingRight: '8px',
+          float: 'right'}} src={"./main/assets/icon_delete.png"} onClick={this.deleteSelected}/>
           Action type: <select
               style={{
                 borderStyle: "none",
